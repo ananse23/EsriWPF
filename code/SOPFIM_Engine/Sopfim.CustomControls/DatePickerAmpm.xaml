@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Sopfim.CustomControls.DatePickerAmpm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:CustomControls="clr-namespace:Sopfim.CustomControls" mc:Ignorable="d" Width="150" Height="24" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <UserControl.Resources>
+        <CustomControls:AmPmConverter x:Key="_amConverter" />
+    </UserControl.Resources>
+  <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+        <DatePicker x:Name="_datePicker" SelectedDateChanged="_datePicker_SelectedDateChanged" 
+                    SelectedDate="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=SelectedDateTime,Mode=OneWay}" Margin="0"/>
+        <xctk:ButtonSpinner Width="50" Grid.Column="1" x:Name="_spinner" Spin="_spinner_Spin" Margin="0">
+            <TextBlock x:Name="_spinText" 
+                       Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=SelectedDateTime, Converter={StaticResource _amConverter}, Mode=OneWay}" 
+                       Margin="0" Padding="0" TextAlignment="Center" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Width="30" Foreground="Black" Height="24" />
+        </xctk:ButtonSpinner>
+    </Grid>
+</UserControl>

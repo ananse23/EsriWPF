@@ -1,0 +1,16 @@
+﻿<CustomControls:EsriWpfApp x:Class="SopfimDevelopment.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:CustomControls="clr-namespace:Sopfim.CustomControls;assembly=Sopfim.CustomControls"
+                StartupUri="MainWindow.xaml" DispatcherUnhandledException="EsriWpfApp_DispatcherUnhandledException">
+    <Application.Resources>
+        <ResourceDictionary>
+            <CustomControls:IsDirtyTextConverter x:Key="_isDirtyConverter" />
+            <CustomControls:GridBorderConverter x:Key="_gridConverter" />
+            <CustomControls:GridBorderThicknessConverter x:Key="_gridThicknessConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Sopfim.CustomControls;component/SopfimDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</CustomControls:EsriWpfApp>

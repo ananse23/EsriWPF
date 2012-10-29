@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Sopfim.CustomControls.MapControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <WindowsFormsHost Name="toolbarHost" Grid.Row="0" Grid.ColumnSpan="3"/>
+        <WindowsFormsHost Name="_tocHost" Grid.Row="1"/>
+        <GridSplitter x:Name="SplitterVer"
+                 ResizeDirection="Columns"                         
+                 ResizeBehavior="BasedOnAlignment" 
+                 ShowsPreview="True" 
+                 Background="#FF778899" 
+                 Width="2" Margin="1,0,1,0" 
+                 HorizontalAlignment="Center" 
+                 VerticalAlignment="Stretch" 
+                 Grid.Column="1" Grid.Row="1" DragIncrement="10" />
+        <WindowsFormsHost Name="mapHost" Loaded="mapHost_Loaded" Grid.Column="2" Grid.Row="1"/>
+    </Grid>
+</UserControl>

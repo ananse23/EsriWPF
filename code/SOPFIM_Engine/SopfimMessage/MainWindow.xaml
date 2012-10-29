@@ -1,0 +1,201 @@
+﻿<Window x:Class="SopfimMessage.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:CustomControls="clr-namespace:Sopfim.CustomControls;assembly=Sopfim.CustomControls" 
+        WindowStyle="ThreeDBorderWindow"
+        Title="SOPFIM Message Application" Height="350" Width="525" WindowState="Maximized"
+        Icon="/SopfimMessage;component/Images/Large/SOPFIM.png" Margin="2,0">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="300" />
+        </Grid.RowDefinitions>
+        <CustomControls:MapControl x:Name="_mapControl" MapLoaded="_mapControl_MapLoaded"/>
+        <GridSplitter x:Name="SplitterHor"
+                ResizeDirection="Rows" 
+                ResizeBehavior="BasedOnAlignment" 
+                ShowsPreview="True" 
+                Background="#FF778899" 
+                Height="2" Margin="0,1,0,1" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Stretch" 
+                Grid.Row="1"  DragIncrement="10" />
+        <Grid Name="_dataPart"  Grid.Row="2" DataContext="{Binding DataViewModel}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+                <RowDefinition Height="27" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border BorderBrush="Black" Grid.Column="1" BorderThickness="1" Background="AliceBlue">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource LinkButton}" VerticalAlignment="Center" ToolTip="Ouvrir deriner message" 
+                            Margin="7,0,0,0" Command="{Binding OpenLastMessage}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Dernier Message #: " VerticalAlignment="Bottom" Style="{StaticResource _filterTextBlock}" />
+                            <TextBlock Text="{Binding LastMessageNumber}" Margin="7,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource _filterTextBlock}" />
+                        </StackPanel>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <TextBlock Text="Message # en cours" Style="{StaticResource _filterTextBlock}" 
+                                   Grid.Column="1" FontSize="20"/>
+                        <TextBox Text="{Binding MessageNumber}" Width="50"  Style="{StaticResource _generalControl}" Grid.Column="1"
+                                 FontSize="14" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                        <TextBlock Text="Date du message" Style="{StaticResource _filterTextBlock}" Margin="25,0,0,0"
+                                   FontSize="14"/>
+                        <CustomControls:DatePickerAmpm  x:Name="_messageDateSelector" Grid.Column="0" Grid.Row="1"
+                                 SelectedDateTime="{Binding MessageSelectedDate, Mode=TwoWay}"
+                                                    Width="150" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button  VerticalAlignment="Bottom" Width="80"  Grid.Column="3"
+                             Command="{Binding NewMessage}" Margin="7,0,0,0" ToolTip="Nouveau message"
+                             Style="{StaticResource _generalControl}" IsEnabled="{Binding IsReadOnly}">Nouveau</Button>
+                </Grid>
+            
+            </Border>
+            <StackPanel Orientation="Horizontal" x:Name="_editPanel" VerticalAlignment="Bottom" Grid.Row="1">
+                <Button Command="{Binding BeginEdit}" Style="{StaticResource _generalControl}"
+                                Width="80">Éditer</Button>
+                <Button Command="{Binding SaveEdit}" Style="{StaticResource _generalControl}"
+                                Width="80">Enregistrer Local</Button>
+                <Button Command="{Binding CancelEdit}" Style="{StaticResource _generalControl}"
+                                Width="80">Annuler</Button>
+            </StackPanel>
+
+            <StackPanel x:Name="_filterPanel" Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="Base d'opération"  Style="{StaticResource _filterTextBlock}"/>
+                <ComboBox x:Name="_operationSelector" ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BaseOperationValues}" 
+                              SelectedValuePath="Code" DisplayMemberPath="Description" 
+                              SelectedValue="{Binding BaseOperation}" Width="110" 
+                    Style="{StaticResource _generalControl}"  />
+                <TextBlock Text="Type bloc"  Style="{StaticResource _filterTextBlock}"/>
+                <ComboBox x:Name="_blocTypeSelector" ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BlocTypeValues}" SelectedValuePath="Code" DisplayMemberPath="Description" SelectedValue="{Binding BlocType}" 
+                     Style="{StaticResource _generalControl}" Width="110"/>
+                <TextBlock Text="No Bloc"  Style="{StaticResource _filterTextBlock}" />
+                <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BlocNumberValues}" 
+                              SelectedValuePath="Code" DisplayMemberPath="Description" 
+                              SelectedValue="{Binding BlocNumber}" Width="110" 
+                    Style="{StaticResource _generalControl}"  />
+
+                <TextBlock Text="Largeur"  Style="{StaticResource _filterTextBlock}" />
+                <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.LargeurValues}" SelectedValuePath="Code" 
+                          DisplayMemberPath="Description" SelectedValue="{Binding Largeur}" 
+                     Style="{StaticResource _generalControl}" Width="110" />
+            </StackPanel>
+            
+            <DataGrid Name="_tabularData" ItemsSource="{Binding DataList}" AutoGenerateColumns="False" Margin="5"
+                  IsReadOnly="{Binding IsReadOnly}" Grid.Row="2" Height="Auto"  Grid.ColumnSpan="2"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          AlternationCount="2" AlternatingRowBackground="#EFF8FB" HorizontalAlignment="Left"
+                          RowHeight="25" ColumnHeaderStyle="{StaticResource _datagridColumnHeader}"
+                      RowHeaderStyle="{StaticResource _datagridRowHeader}" 
+                      BorderBrush="{Binding IsReadOnly, Converter={StaticResource _gridConverter}}" 
+                      BorderThickness="{Binding IsReadOnly, Converter={StaticResource _gridThicknessConverter}}">
+
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="L">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Grid}, AncestorLevel=2}, Path=DataContext.Locate}"
+                           CommandParameter="{Binding NoBloc}" Width="25" Height="24" Margin="0">
+                                    <Image Source="/SopfimMessage;component/Images/Large/filefind.png" Width="25" Height="24" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Button>
+
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="*" Binding="{Binding IsDirty, Converter={StaticResource _isDirtyConverter}}" 
+                                        Width="30" IsReadOnly="True" ElementStyle="{StaticResource _boldData}">
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="No Bloc" Binding="{Binding NoBloc}" Width="60" IsReadOnly="True"/>
+                    <CustomControls:BindableDatagridComboBoxColumn Header="Timing IDI" SelectedValueBinding="{Binding TimingIDI}" Width="80" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.TimingValues}" SelectedValuePath="Code" DisplayMemberPath="Description"/>
+                    <DataGridTextColumn Header="Larves Br" Binding="{Binding LarvesBr}"  Width="80"/>
+                    <CustomControls:BindableDatagridComboBoxColumn Header="Produit" SelectedValueBinding="{Binding Produit}" Width="100" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.ProduitValues}" 
+                          SelectedValuePath="Code" DisplayMemberPath="Description"/>
+                    <CustomControls:BindableDatagridComboBoxColumn Header="Prescription" SelectedValueBinding="{Binding Prescription}" Width="100" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.PerscriptionValues}" 
+                          SelectedValuePath="Code" DisplayMemberPath="Description"/>
+                    <CustomControls:BindableDatagridComboBoxColumn Header="Application" SelectedValueBinding="{Binding Application}" Width="100" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.ApplicationValues}" 
+                          SelectedValuePath="Code" DisplayMemberPath="Description"/>
+                    <CustomControls:BindableDatagridComboBoxColumn Header="InterApp" SelectedValueBinding="{Binding InterApp}" Width="100" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.InterApplicationValues}" 
+                          SelectedValuePath="Code" DisplayMemberPath="Description"/>
+                    <DataGridTextColumn Header="Nbre Lv 30m" Binding="{Binding NbreLv30m}"  Width="100" IsReadOnly="True"/>
+
+                    <CustomControls:BindableDatagridComboBoxColumn Header="Priorité État" SelectedValueBinding="{Binding PrioriteEtat}" Width="100" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.PrioriteEtatValues}" 
+                          SelectedValuePath="Code" DisplayMemberPath="Description"/>
+                    <DataGridTemplateColumn Header="Date Prevision" Width="151">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DatePrevision, StringFormat=yyyy MMM dd tt}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <CustomControls:DatePickerAmpm  x:Name="_previsonDate" SelectedDateTime="{Binding DatePrevision, Mode=TwoWay}" 
+                                                               IsEnabled="{Binding DatePrevisionIsEnabled}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Date Overture" Width="151">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DateOuverture, StringFormat=yyyy MMM dd tt}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <CustomControls:DatePickerAmpm  x:Name="_overtureDate" SelectedDateTime="{Binding DateOuverture, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="LuOuv" Binding="{Binding LvOuv30m}" Width="100" />
+                    <DataGridTextColumn Header="Remarque"  Width="150" />
+                    <DataGridTemplateColumn Header="DateTr" Width="151">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DateTr, StringFormat=yyyy MMM dd tt}" Background="Cyan"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <CustomControls:DatePickerAmpm  x:Name="_dateTr" SelectedDateTime="{Binding DateTr, Mode=TwoWay}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="LvTr" Binding="{Binding LvTr}" IsReadOnly="True" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextBlock.Background" Value="Cyan" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="EtatBloc" Binding="{Binding EtatBloc}" IsReadOnly="True" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextBlock.Background" Value="Cyan" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>

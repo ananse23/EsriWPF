@@ -1,0 +1,628 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ORMapping</name>
+    </assembly>
+    <members>
+        <member name="T:ORMapping.FeatureMapperExt">
+            <summary>
+            Provides extension methods for OR mapping.
+            </summary>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.FindItemByOID``1(ESRI.ArcGIS.Geodatabase.ITable,System.Int32)">
+            <summary>
+            Finds a row by the Object ID and returns the data as an object of the specified type.  If no match is found, returns null.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="table"></param>
+            <param name="oid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.FindItemByOID``1(ESRI.ArcGIS.Geodatabase.IFeatureClass,System.Int32)">
+            <summary>
+            Finds a feature by the Object ID and returns the data as an object of the specified type.  If no match is found, returns null.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureClass"></param>
+            <param name="oid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.Map``1(ESRI.ArcGIS.Geodatabase.ITable)">
+            <summary>
+            Reads all rows as a (lazily-evaluated) sequence of objects of the specified type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="table"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.Map``1(ESRI.ArcGIS.Geodatabase.IFeatureClass)">
+            <summary>
+            Reads all features as a (lazily-evaluated) sequence of objects of the specified type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureClass"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.Map``1(ESRI.ArcGIS.Geodatabase.ITable,ESRI.ArcGIS.Geodatabase.IQueryFilter)">
+            <summary>
+            Reads all rows meeting the filter criteria as a (lazily-evaluated) sequence of objects of the specified type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="table"></param>
+            <param name="filter">The query filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.Map``1(ESRI.ArcGIS.Geodatabase.IFeatureClass,ESRI.ArcGIS.Geodatabase.IQueryFilter)">
+            <summary>
+            Reads all features meeting the filter criteria as a (lazily-evaluated) sequence of objects of the specified type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureClass"></param>
+            <param name="filter">The query filter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.InsertInto``1(``0,ESRI.ArcGIS.Geodatabase.ITable)">
+            <summary>
+            Inserts this item into a table.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="item">The item to insert.</param>
+            <param name="table">The target table.</param>
+            <returns>The inserted item (with a newly assigned OID).</returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.InsertInto``1(``0,ESRI.ArcGIS.Geodatabase.IFeatureClass)">
+            <summary>
+            Inserts this item into a feature class.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="item">The item to insert.</param>
+            <param name="featureClass">The target feature class.</param>
+            <returns>The inserted item (with a newly assigned OID).</returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.Update``1(``0)">
+            <summary>
+            Updates this item in the underlying table.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="item">The item to update.  The item must be bound to a table and must have a valid OID.</param>
+            <returns>The updated copy of the item.</returns>
+        </member>
+        <member name="M:ORMapping.FeatureMapperExt.Delete``1(``0)">
+            <summary>
+            Deletes this item from the underlying table.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="item">The item to delete.  The item must be bound to a table and must have a valid OID.</param>
+        </member>
+        <member name="T:ORMapping.MappableFeature">
+            <summary>
+            Represents the base class for objects that are OR-mapped using FeatureMapper.
+            </summary>
+        </member>
+        <member name="M:ORMapping.MappableFeature.#ctor">
+            <summary>
+            Initializes a new instance of the MappableFeature class.
+            </summary>
+        </member>
+        <member name="M:ORMapping.MappableFeature.AttributeValuesEqual(ORMapping.MappableFeature)">
+            <summary>
+            Compares all mapped field values between two objects.  The OID and geometry fields are not checked.
+            </summary>
+            <param name="feature"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.MappableFeature.Equals(System.Object)">
+            <summary>
+            Determines if this object and the specified object have the same value.  All mapped fields are checked for value equality.  Read-only fields (i.e. OID) are not compared.  The geometry fields are compared using IRelationalOperator.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.MappableFeature.GetHashCode">
+            <summary>
+            Overridden to return the hash code of the concatenated attribute values.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.MappableFeature.ToString">
+            <summary>
+            Overridden to return the JSON representation of this feature.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.MappableFeature.ToString(System.Boolean)">
+            <summary>
+            Returns the JSON representation of this feature.
+            </summary>
+            <param name="includeGeometry"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ORMapping.MappableFeature.OID">
+            <summary>
+            The Object ID of the item.  If an item is not bound to a feature class (if it is created from scratch), the OID is set to -1.
+            </summary>
+        </member>
+        <member name="P:ORMapping.MappableFeature.Shape">
+            <summary>
+            The geometry of the item.  The data assigned to this property is always cloned.
+            </summary>
+        </member>
+        <member name="P:ORMapping.MappableFeature.IsDataBound">
+            <summary>
+            Indicates if the object is bound to an actual row in the underlying table.
+            </summary>
+        </member>
+        <member name="T:ORMapping.Meta.CodeGeneratorExt">
+            <summary>
+            Provides extension methods that allow for direct conversion from a geodatbase table to CSharp or VB code.
+            </summary>
+        </member>
+        <member name="M:ORMapping.Meta.CodeGeneratorExt.ToCSharp(ESRI.ArcGIS.Geodatabase.ITable,System.String,System.String)">
+            <summary>
+            Generates a CSharp class that maps this table into an object.
+            </summary>
+            <param name="table"></param>
+            <param name="namespaceName"></param>
+            <param name="className"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.Meta.CodeGeneratorExt.ToCSharp(ESRI.ArcGIS.Geodatabase.IFeatureClass,System.String,System.String)">
+            <summary>
+            Generates a CSharp class that maps this feature class into an object.
+            </summary>
+            <param name="featureClass"></param>
+            <param name="namespaceName"></param>
+            <param name="className"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.Meta.CodeGeneratorExt.ToVB(ESRI.ArcGIS.Geodatabase.ITable,System.String)">
+            <summary>
+            Generates a VB class that maps this table into an object.
+            </summary>
+            <param name="table"></param>
+            <param name="className"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.Meta.CodeGeneratorExt.ToVB(ESRI.ArcGIS.Geodatabase.IFeatureClass,System.String)">
+            <summary>
+            Generates a VB class that maps this feature class into an object.
+            </summary>
+            <param name="featureClass"></param>
+            <param name="className"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ORMapping.Serialization.Json">
+            <summary>
+            Provides extension methods for converting geometries into JSON strings.
+            </summary>
+        </member>
+        <member name="M:ORMapping.Serialization.Json.Serialize(ORMapping.MappableFeature,System.Boolean)">
+            <summary>
+            Return the JSON representation of this feature.
+            </summary>
+            <param name="feature"></param>
+            <param name="includeGeometry"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.Serialization.Json.Deserialize``1(System.String)">
+            <summary>
+            Creates a new feature from a JSON string.  OID is ignored.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="json"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ORMapping.AO.TopologicalOpExt">
+            <summary>
+            Provides extension methods for ArcObjects classes.
+            </summary>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Buffer(ESRI.ArcGIS.Geometry.IGeometry,System.Double,System.Boolean)">
+            <summary>
+            Returns a buffered shape.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="distance">The distance in the map unit of the current geometry.</param>
+            <param name="autoDensify">If set to true, the resulting polygon is densified.  Use this to convert a circle to a polygon with vertices.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Buffer(ESRI.ArcGIS.Geometry.IGeometry,System.Double)">
+            <summary>
+            Returns a buffered shape.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="distance">The distance in the map unit of the current geometry.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Buffer(ESRI.ArcGIS.Geometry.IGeometry,System.Double,ESRI.ArcGIS.Geometry.ISpatialReference,System.Boolean)">
+            <summary>
+            Returns a buffered shape.  The shape is buffered in the specified spatial reference.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="distance">The distance in the map unit of the specified spatial reference.</param>
+            <param name="spatialReference">The spatial reference in which the distance is calculated.</param>
+            <param name="autoDensify">If set to true, the resulting polygon is densified.  Use this to convert a circle to a polygon with vertices.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Buffer(ESRI.ArcGIS.Geometry.IGeometry,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            Returns a buffered shape.  The shape is buffered in the specified spatial reference.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="distance">The distance in the map unit of the specified spatial reference.</param>
+            <param name="wkid">The well-known ID of the spatial reference in which the distance is calculated.</param>
+            <param name="autoDensify">If set to true, the resulting polygon is densified.  Use this to convert a circle to a polygon with vertices.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Boundary(ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Returns the boundary of this geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.ConvexHull(ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Returns the convex hull of this geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Copy``1(``0)">
+            <summary>
+            Clones the current geometry without altering the state of the original object.
+            </summary>
+            <typeparam name="T">The type of geometry.</typeparam>
+            <param name="shape">The current geometry.</param>
+            <returns>A new copy of the geometry.</returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Clip(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IEnvelope)">
+            <summary>
+            Returns the intersection of this geometry and the specified envelope.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="clipperEnvelope">The "cookie cutter" geometry.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Difference(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Returns the geometry containing points from this geometry but not the other geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="other">The other geometry.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Intersect(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Returns the geometry that is the set-theoretic intersection of the input geometries.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="other">The other geometry.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Union(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Returns the geometry that is the set-theoretic union of the input geometries.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="other">The other geometry.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Project2``1(``0,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geometry.IGeoTransformation,ESRI.ArcGIS.Geometry.esriTransformDirection)">
+            <summary>
+            Returns a projected copy of the geometry without altering the state of the original object.
+            </summary>
+            <typeparam name="T">The type of geometry.</typeparam>
+            <param name="shape">The current geometry.</param>
+            <param name="spatialReference">The target spatial reference.</param>
+            <param name="transformation">The datum transformation.</param>
+            <param name="direction">The direction of transformation.</param>
+            <returns>A projected copy of the geometry.</returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Project2``1(``0,ESRI.ArcGIS.Geometry.ISpatialReference)">
+            <summary>
+            Returns a projected copy of the geometry without altering the state of the original object.
+            </summary>
+            <typeparam name="T">The type of geometry.</typeparam>
+            <param name="shape">The current geometry.</param>
+            <param name="spatialReference">The target spatial reference.</param>
+            <returns>A projected copy of the geometry.</returns>
+        </member>
+        <member name="M:ORMapping.AO.TopologicalOpExt.Project2``1(``0,System.Int32)">
+            <summary>
+            Returns a projected copy of the geometry without altering the state of the  original object.
+            </summary>
+            <typeparam name="T">The type of geometry.</typeparam>
+            <param name="shape">The current geometry.</param>
+            <param name="wkid">The well-known ID of the target spatial reference (i.e. 4326 for WGS84).</param>
+            <returns>A projected copy of the geometry.</returns>
+        </member>
+        <member name="T:ORMapping.AO.RelationalOpExt">
+            <summary>
+            Provides extension methods for ArcObjects classes.
+            </summary>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Contains(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if this geometry contains the other geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Crosses(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if the two geometries intersect in a geometry of lesser dimension.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Disjoint(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if the two geometries share no points in common.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Equals2(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if the two geometries are of the same type and define the same set of points in the plane.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Equals2(ESRI.ArcGIS.Geometry.IPoint,ESRI.ArcGIS.Geometry.IPoint)">
+            <summary>
+            Indicates if the two points are the same.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Intersects(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if this geometry intersects the other geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Overlaps(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if the intersection of the two geometries has the same dimension as one of the input geometries.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Relation(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry,System.String)">
+            <summary>
+            Indicates if the defined relationship exists.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <param name="relationDescription">Description of the spatial relation (Shape Comparison Language).</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Touches(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if the boundaries of the geometries intersect.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.Within(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Indicates if this geometry is contained (is within) another geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.WithinDistanceOf(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry,System.Double)">
+            <summary>
+            Indicates if this geometry is within the distance of (buffer intersects) another geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <param name="distance">The distance in the map unit of the current shape.</param>
+            <returns>True or false.</returns>
+        </member>
+        <member name="M:ORMapping.AO.RelationalOpExt.DistanceTo(ESRI.ArcGIS.Geometry.IGeometry,ESRI.ArcGIS.Geometry.IGeometry)">
+            <summary>
+            Calculates the distance from the current geometry to the other geometry.
+            </summary>
+            <param name="shape">The current geometry.</param>
+            <param name="comparisonShape">The geometry to compare with.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ORMapping.TableWriter">
+            <summary>
+            Provides static functions for creating geodatabase tables from a MappableFeature type (a.k.a. "code first").
+            </summary>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateTable``1(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String)">
+            <summary>
+            Creates a new table based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureWorkspace"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateTable``1(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String,System.Boolean)">
+            <summary>
+            Creates a new table based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureWorkspace"></param>
+            <param name="name"></param>
+            <param name="overwrite">If set to true, the exsiting table with the same name will be deleted first.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateFeatureClass``1(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String,ESRI.ArcGIS.Geometry.esriGeometryType,ESRI.ArcGIS.Geometry.ISpatialReference)">
+            <summary>
+            Creates a new feature class based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureWorkspace"></param>
+            <param name="name"></param>
+            <param name="geometryType"></param>
+            <param name="spatialReference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateFeatureClass``1(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String,ESRI.ArcGIS.Geometry.esriGeometryType,ESRI.ArcGIS.Geometry.ISpatialReference,System.Boolean)">
+            <summary>
+            Creates a new feature class based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureWorkspace"></param>
+            <param name="name"></param>
+            <param name="geometryType"></param>
+            <param name="spatialReference"></param>
+            <param name="overwrite">If set to true, the exsiting feature class with the same name will be deleted first.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateFeatureClass``1(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String,ESRI.ArcGIS.Geometry.esriGeometryType,System.Int32)">
+            <summary>
+            Creates a new feature class based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureWorkspace"></param>
+            <param name="name"></param>
+            <param name="geometryType"></param>
+            <param name="wkid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateFeatureClass``1(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String,ESRI.ArcGIS.Geometry.esriGeometryType,System.Int32,System.Boolean)">
+            <summary>
+            Creates a new feature class based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureWorkspace"></param>
+            <param name="name"></param>
+            <param name="geometryType"></param>
+            <param name="wkid"></param>
+            <param name="overwrite">If set to true, the exsiting feature class with the same name will be deleted first.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateFeatureClass``1(ESRI.ArcGIS.Geodatabase.IFeatureDataset,System.String,ESRI.ArcGIS.Geometry.esriGeometryType)">
+            <summary>
+            Creates a new feature class based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureDataset"></param>
+            <param name="name"></param>
+            <param name="geometryType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.TableWriter.CreateFeatureClass``1(ESRI.ArcGIS.Geodatabase.IFeatureDataset,System.String,ESRI.ArcGIS.Geometry.esriGeometryType,System.Boolean)">
+            <summary>
+            Creates a new feature class based on the MappableFeature type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="featureDataset"></param>
+            <param name="name"></param>
+            <param name="geometryType"></param>
+            <param name="overwrite">If set to true, the exsiting feature class with the same name will be deleted first.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ORMapping.MappedField">
+            <summary>
+            Provides a custom attribute for specifying the source field name.  This is used to map a table field to a class property.
+            </summary>
+        </member>
+        <member name="M:ORMapping.MappedField.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the MappedField class.
+            </summary>
+            <param name="fieldName">The name of the feature class field.</param>
+        </member>
+        <member name="M:ORMapping.MappedField.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the MappedField class.
+            </summary>
+            <param name="fieldName">The name of the feature class field.</param>
+            <param name="textLength">The length of the field (for text fields only).</param>
+        </member>
+        <member name="P:ORMapping.MappedField.FieldName">
+            <summary>
+            The name of the feature class field.
+            </summary>
+        </member>
+        <member name="P:ORMapping.MappedField.TextLength">
+            <summary>
+            The length of the field.  Used by TableWriter to specify the length of a text field when creating a new table.
+            </summary>
+        </member>
+        <member name="T:ORMapping.AO.GeodatabaseExt">
+            <summary>
+            Provides extension methods for ArcObjects classes.
+            </summary>
+        </member>
+        <member name="M:ORMapping.AO.GeodatabaseExt.Edit(ESRI.ArcGIS.Geodatabase.IWorkspace,System.Action,System.Exception@)">
+            <summary>
+            Encapsulates a workspace edit session (or an edit operation).  The edits will not be saved if an exception is thrown.  If the workspace is already being edited before this method is called, the edit session will not be stopped at the end of the method.
+            </summary>
+            <param name="workspace">The workspace in which edits are performed.</param>
+            <param name="action">The editing action.</param>
+            <param name="exception">Any exception that may be thrown within the edit session.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.GeodatabaseExt.Edit(ESRI.ArcGIS.Geodatabase.IWorkspace,System.Action)">
+            <summary>
+            Encapsulates a workspace edit session (or an edit operation).  The edits will not be saved if an exception is thrown.  If the workspace is already being edited before this method is called, the edit session will not be stopped at the end of the method.
+            </summary>
+            <param name="workspace">The workspace in which edits are performed.</param>
+            <param name="action">The editing action.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.GeodatabaseExt.GetDatasets(ESRI.ArcGIS.Geodatabase.IWorkspace,ESRI.ArcGIS.Geodatabase.esriDatasetType,System.Boolean)">
+            <summary>
+            Returns all datasets in a workspace.
+            </summary>
+            <param name="workspace">The workspace to scan.</param>
+            <param name="datasetType">The type of datasets to find.</param>
+            <param name="recursive">If set to true, all subsets in feature datasets are also returned.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.GeodatabaseExt.GetDatasets(ESRI.ArcGIS.Geodatabase.IDataset,ESRI.ArcGIS.Geodatabase.esriDatasetType)">
+            <summary>
+            Returns all subset datasets in a feature dataset.
+            </summary>
+            <param name="dataset">The parent feature dataset to scan.</param>
+            <param name="datasetType">The type of datasets to find.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.GeodatabaseExt.OpenTable2(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String)">
+            <summary>
+            Opens an existing table.  If the table with the specified name does not exist, returns null.
+            </summary>
+            <param name="featureWorkspace"></param>
+            <param name="tableName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ORMapping.AO.GeodatabaseExt.OpenFeatureClass2(ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,System.String)">
+            <summary>
+            Opens an existing feature class.  If the feature class with the specified name does not exist, returns null.
+            </summary>
+            <param name="featureWorkspace"></param>
+            <param name="featureClassName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ORMapping.MappableFeatureViewModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:ORMapping.MappableFeatureViewModel.PropertyChanged">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
