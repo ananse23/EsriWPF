@@ -28,6 +28,7 @@ namespace Sopfim.CustomControls
 
         protected override void OnExit(ExitEventArgs e)
         {
+            ESRI.ArcGIS.ADF.COMSupport.AOUninitialize.Shutdown();
             _oInitialize.Shutdown();
             LogManager.GetLogger(typeof(EsriWpfApp)).Info("Shutdown the license");
             LogManager.GetLogger(typeof(EsriWpfApp)).Info("=====================================================");
