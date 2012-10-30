@@ -240,11 +240,9 @@ namespace SOPFIM.Domain
                 _dateOuverture = value;
                 if (_dateOuverture.HasValue)
                     _datePrevision = null;
-                
                 RaisePropertyChanged("DateOuverture");
                 RaisePropertyChanged("DatePrevision");
                 RaisePropertyChanged("DatePrevisionIsEnabled");
-
                 IsDirty = true;
             }
         }
@@ -332,10 +330,24 @@ namespace SOPFIM.Domain
                 IsDirty = true;
             }
         }
-
         public bool DatePrevisionIsEnabled
         {
             get { return !DateOuverture.HasValue; }
+        }
+
+
+        private string _remarque;
+        [MappedField("Remarque", 255)]
+        public string Remarque
+        {
+            get { return _remarque; }
+            set
+            {
+                if (_remarque == value) return;
+                _remarque = value;
+                RaisePropertyChanged("Remarque");
+                IsDirty = true;
+            }
         }
     }
 }

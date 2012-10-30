@@ -78,7 +78,7 @@
                                 <Button Style="{StaticResource LinkButton}" VerticalAlignment="Center" ToolTip="Ouvrir deriner message" 
                                     Margin="7,0,0,0" Command="{Binding OpenLastMessage}">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Dernier Message #: " VerticalAlignment="Bottom" Style="{StaticResource _filterTextBlock}" />
+                                        <TextBlock Text="Dernier Message #: " VerticalAlignment="Bottom" Style="{StaticResource _filterTextBlock}" ToolTip="Ouvrir dernier message" />
                                         <TextBlock Text="{Binding LastMessageNumber}" Margin="7,0,0,0" VerticalAlignment="Bottom" Style="{StaticResource _filterTextBlock}" />
                                     </StackPanel>
                                 </Button>
