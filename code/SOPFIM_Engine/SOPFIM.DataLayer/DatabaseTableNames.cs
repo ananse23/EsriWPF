@@ -2,7 +2,6 @@
 {
     public static class DatabaseTableNames
     {
-        //public const string BlocTableName = "BlocTBE";
         public const string TimingValues = "D_TimingIDI";
         public const string ProduitValues = "D_Produit";
         public const string PerscriptionValues = "D_Prescription";

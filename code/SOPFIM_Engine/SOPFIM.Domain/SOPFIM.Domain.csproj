@@ -38,6 +38,7 @@
     <Reference Include="ORMapping">
       <HintPath>..\packages\OrmMapping\ORMapping.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />

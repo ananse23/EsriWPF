@@ -25,14 +25,16 @@ namespace SopfimMessage
         {
             try
             {
+                
                 Logger.Log(typeof(MainWindow), "map was successfuly loaded");
-                Logger.Log(typeof(MainWindow), "Loading data...: " + ConfigurationManager.AppSettings["fileGeodatabase"]);
+                var fileGeodatabase = ConfigurationManager.AppSettings["fileGeodatabase"];
+                Logger.Log(typeof(MainWindow), "Loading data...: " + fileGeodatabase);
                 var model =
-                        new WindowViewModel<MessageEntityViewModel, Message>(
-                            ConfigurationManager.AppSettings["fileGeodatabase"], _mapService);
+                        new MainWindowViewModel<MessageEntityViewModel, Message>(
+                            fileGeodatabase, _mapService);
                 model.InitializeDataModel();
                 this.DataContext = model;
-                LogManager.GetLogger(typeof(MainWindow)).Info("Finish loaded data: " + ConfigurationManager.AppSettings["fileGeodatabase"]);
+                LogManager.GetLogger(typeof(MainWindow)).Info("Finish loaded data: " + fileGeodatabase);
             }
             
             catch (Exception exception)

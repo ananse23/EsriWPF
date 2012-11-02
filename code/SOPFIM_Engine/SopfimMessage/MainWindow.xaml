@@ -34,7 +34,7 @@
 
 
 
-            <Grid >
+            <Grid x:Name="_editButtonPanel" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -67,14 +67,14 @@
 
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" x:Name="_rightSidePart">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid >
+                    <Grid x:Name="_messageNumberPanel">
                         <Border BorderBrush="Black" Grid.Column="1" BorderThickness="1" Background="AliceBlue">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" x:Name="_messageNumberStack">
                                 <Button Style="{StaticResource LinkButton}" VerticalAlignment="Center" ToolTip="Ouvrir deriner message" 
                                     Margin="7,0,0,0" Command="{Binding OpenLastMessage}">
                                     <StackPanel Orientation="Horizontal">
@@ -85,12 +85,11 @@
                                 <TextBlock Text="Message # en cours" Style="{StaticResource _filterTextBlock}" Margin="25,0,0,0"/>
                                 <TextBox Text="{Binding MessageNumber}" Width="50"  Style="{StaticResource _generalControl}" />
                                 <TextBlock Text="Date du message" Style="{StaticResource _filterTextBlock}" Margin="25,0,0,0" />
-                                <CustomControls:DatePickerAmpm  x:Name="_messageDateSelector" SelectedDateTime="{Binding MessageSelectedDate, Mode=TwoWay}"
+                                <CustomControls:DatePickerAmpm  x:Name="_messageDateSelector" SelectedDateTime="{Binding MessageSelectedDate, Mode=OneWay}"
                                                 Width="150" Margin="15,0,0,0" VerticalAlignment="Center" IsEnabled="False"/>
                                 
                         </StackPanel>
-
-                    </Border>
+                        </Border>
 
                     </Grid>
 
@@ -127,7 +126,18 @@
                       RowHeaderStyle="{StaticResource _datagridRowHeader}" 
                       BorderBrush="{Binding IsReadOnly, Converter={StaticResource _gridConverter}}" 
                       BorderThickness="{Binding IsReadOnly, Converter={StaticResource _gridThicknessConverter}}">
-
+                <DataGrid.Resources>
+                    <ContextMenu x:Key="RowMenu" DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
+                        
+                        <MenuItem Header="Copy" Command="{Binding SplitMessage}" />
+                        
+                    </ContextMenu>
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="ContextMenu" Value="{StaticResource RowMenu}" />
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="L">
                         <DataGridTemplateColumn.CellTemplate>

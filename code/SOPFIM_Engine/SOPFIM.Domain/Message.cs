@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Practices.Prism.Commands;
 using ORMapping;
 
 namespace SOPFIM.Domain
@@ -349,5 +350,21 @@ namespace SOPFIM.Domain
                 IsDirty = true;
             }
         }
+
+        /*private DelegateCommand _splitMessage;
+        public DelegateCommand SplitMessage
+        {
+            get
+            {
+                return _splitMessage ?? (_splitMessage = new DelegateCommand(SplitCurrentMessage));
+            }
+        }
+
+        private void SplitCurrentMessage()
+        {
+            
+        }
+*/
+        
     }
 }

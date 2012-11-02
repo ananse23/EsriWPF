@@ -12,6 +12,7 @@ namespace SopfimMessage.ViewModel
 {
     public class MessageEntityViewModel : EditableDataViewModel<Message>
     {
+        private int? _messageNumberBeforeNewMessage;
         private bool _isNew;
 
         protected override string WhereTemplate
@@ -21,7 +22,6 @@ namespace SopfimMessage.ViewModel
 
         protected override string GenerteWhereClause()
         {
-            const string dateString = "EXTRACT(YEAR FROM DateMessages) = {0} AND EXTRACT(MONTH FROM DateMessages) = {1} AND EXTRACT(DAY FROM DateMessages) = {2} AND ";
             var query = string.Empty;
             if (!string.IsNullOrEmpty(BlocType))
                 query += string.Format("TypeBloc = '{0}' and ", BlocType);
@@ -29,9 +29,6 @@ namespace SopfimMessage.ViewModel
                 query += string.Format("NomBase = '{0}' and ", BaseOperation);
             if (MessageNumber.HasValue && MessageNumber.Value > 0)
                 query += string.Format("MessagesID = {0} and ", MessageNumber.Value);
-            if (MessageSelectedDate.HasValue)
-                query += string.Format(dateString, MessageSelectedDate.Value.Year, MessageSelectedDate.Value.Month,
-                                       MessageSelectedDate.Value.Day);
             if (!string.IsNullOrEmpty(BlocNumber))
                 query += string.Format("NoBloc = '{0}' and ", BlocNumber);
             return string.IsNullOrEmpty(query) ? query : query.Substring(0, query.Length - 5);
@@ -110,13 +107,6 @@ namespace SopfimMessage.ViewModel
         public DateTime? MessageSelectedDate
         {
             get { return _messageSelectedDate; }
-            set
-            {
-                _messageSelectedDate = value;
-                _messageNumber = null;
-                RaisePropertyChanged("MessageSelectedDate");
-                QueryData();
-            }
         }
 
         private string _largeur;
@@ -154,7 +144,7 @@ namespace SopfimMessage.ViewModel
         private void LocateBloc(string bloc)
         {
             if (_bufferRepository == null)
-                _bufferRepository = new Repository<BufferLvTBE>(DataService, ConfigurationManager.AppSettings["BlocTableName"]);
+                _bufferRepository = new Repository<BlocTBE>(DataService, ConfigurationManager.AppSettings["BlocTableName"]);
             var result = _bufferRepository.QueryData(string.Format("NoBloc = '{0}'", bloc));
             var envelopeTotal = new Envelope() as IEnvelope;
             result.ForEach(x =>
@@ -183,33 +173,48 @@ namespace SopfimMessage.ViewModel
 
         private void CreateNewMessage()
         {
+            _messageNumberBeforeNewMessage = MessageNumber;
             _isNew = true;
             var list = Repository.QueryData(string.Format("MessagesID = {0}", LastMessageNumber));
             var newList = new ObservableCollection<Message>();
-            LastMessageNumber++;
+            //LastMessageNumber++;
+            var newMessageNumber = LastMessageNumber + 1;
             list.ForEach(x =>
                              {
-                                 x.MessagesID = LastMessageNumber;
+                                 x.MessagesID = newMessageNumber;
                                  x.DateMessages = DateTime.Now;
                                  newList.Add(x);
                              });
             DataList = new ObservableCollection<Message>(list);
             IsReadOnly = false;
+            _messageNumber = newMessageNumber;
+            RaisePropertyChanged("MessageNumber");
         }
 
         protected override void CancelData()
         {
-            base.CancelData();
             if (_isNew)
-                LastMessageNumber--;
+                _messageNumber = _messageNumberBeforeNewMessage;
+            base.CancelData();
         }
 
-        private IRepository<BufferLvTBE> _bufferRepository;
-        
+        private IRepository<BlocTBE> _bufferRepository;
+
+        protected override void SaveData()
+        {
+            base.SaveData();
+            if (_isNew)
+                LastMessageNumber = MessageNumber;
+        }
 
         public override void QueryData()
         {
             base.QueryData();
+            if (DataList.Count == 0)
+            {
+                Xceed.Wpf.Toolkit.MessageBox.Show("Could not find data");
+                return;
+            }
             if (DataList.Select(x => x.MessagesID).Distinct().Count() > 1)
             {
                 _messageNumber = 0;
@@ -222,6 +227,7 @@ namespace SopfimMessage.ViewModel
                 RaisePropertyChanged("MessageNumber");
                 RaisePropertyChanged("MessageSelectedDate"); 
             }
+            _isNew = false;
             //_blocTable = DataService.GetTable(ConfigurationManager.AppSettings["BufferTableName"]);
             //if (string.IsNullOrEmpty(Largeur)) return;
             //var query = string.Format("LargeurTr = '{0}'", Largeur);

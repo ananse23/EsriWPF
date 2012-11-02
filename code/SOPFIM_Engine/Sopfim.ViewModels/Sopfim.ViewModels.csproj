@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="EditableDataViewModel.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="WindowViewModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

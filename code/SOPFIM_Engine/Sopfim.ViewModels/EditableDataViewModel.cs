@@ -8,7 +8,6 @@ using ORMapping;
 using SOPFIM.DataLayer;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
-using log4net;
 
 namespace Sopfim.ViewModels
 {
@@ -74,7 +73,7 @@ namespace Sopfim.ViewModels
             }
         }
 
-        private void SaveData()
+        protected virtual void SaveData()
         {
             SaveDataList();
             this.IsReadOnly = true;
@@ -121,14 +120,14 @@ namespace Sopfim.ViewModels
             try
             {
                 var query = GenerteWhereClause();
-                LogManager.GetLogger(typeof(EditableDataViewModel<T>)).Info("retreiving data with where caluse: " + query);
+                Logger.Log(typeof(EditableDataViewModel<T>), "retreiving data with where caluse: " + query);
                 this.DataList = new ObservableCollection<T>(Repository.QueryData(query));
-                LogManager.GetLogger(typeof(EditableDataViewModel<T>)).Info("retreived " +
+                Logger.Log(typeof(EditableDataViewModel<T>), "retreived " +
                             DataList.Count.ToString(CultureInfo.InvariantCulture) + " records");
             }
             catch (Exception exception)
             {
-                LogManager.GetLogger("ErrorLogger").Fatal("Error reading the data", exception);
+                Logger.Error("Error reading the data", exception);
                 throw;
             }
         }

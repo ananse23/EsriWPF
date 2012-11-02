@@ -1,6 +1,6 @@
 ﻿using System.Windows.Threading;
 using Sopfim.CustomControls;
-using log4net;
+using Sopfim.ViewModels;
 using log4net.Config;
 
 namespace SopfimDevelopment
@@ -18,7 +18,7 @@ namespace SopfimDevelopment
 
         private void EsriWpfApp_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            LogManager.GetLogger("ErrorLogger").Fatal("unhandled error caught in the application", e.Exception);
+            Logger.Error("unhandled error caught in the application", e.Exception);
             Xceed.Wpf.Toolkit.MessageBox.Show("Error caught: " + e.Exception.Message);
         }
     }

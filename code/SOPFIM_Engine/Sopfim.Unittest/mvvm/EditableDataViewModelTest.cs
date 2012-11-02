@@ -82,7 +82,7 @@ namespace Sopfim.Unittest.mvvm
         }
 
         [Test]
-        public void QueryData_should_call_repository()
+        public void QueryData_should_delegate_to_repository()
         {
             _testClass.QueryData();
             _repo.Verify(x => x.QueryData("where"));
@@ -90,7 +90,7 @@ namespace Sopfim.Unittest.mvvm
         }
 
         [Test]
-        public void SaveCommand_should_call_repository()
+        public void SaveCommand_should_delegate_to_repository()
         {
             _testClass.QueryData();
             _repo.Verify(x => x.QueryData("where"));
@@ -113,7 +113,7 @@ namespace Sopfim.Unittest.mvvm
 
             protected override string TableName
             {
-                get { throw new System.NotImplementedException(); }
+                get { return "MessageTable"; }
             }
 
             public override void InitialQuery()
