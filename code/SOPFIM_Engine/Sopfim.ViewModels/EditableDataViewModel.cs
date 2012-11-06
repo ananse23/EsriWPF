@@ -2,12 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using Esri.CommonUtils;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using ORMapping;
 using SOPFIM.DataLayer;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
+
 
 namespace Sopfim.ViewModels
 {
@@ -120,9 +122,9 @@ namespace Sopfim.ViewModels
             try
             {
                 var query = GenerteWhereClause();
-                Logger.Log(typeof(EditableDataViewModel<T>), "retreiving data with where caluse: " + query);
+                Logger.Log("retreiving data with where caluse: " + query);
                 this.DataList = new ObservableCollection<T>(Repository.QueryData(query));
-                Logger.Log(typeof(EditableDataViewModel<T>), "retreived " +
+                Logger.Log("retreived " +
                             DataList.Count.ToString(CultureInfo.InvariantCulture) + " records");
             }
             catch (Exception exception)

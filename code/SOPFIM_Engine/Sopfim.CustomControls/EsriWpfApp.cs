@@ -2,7 +2,8 @@
 using System.Windows;
 using ESRI.ArcGIS;
 using ESRI.ArcGIS.esriSystem;
-using log4net;
+using Esri.CommonUtils;
+
 
 namespace Sopfim.CustomControls
 {
@@ -14,14 +15,14 @@ namespace Sopfim.CustomControls
             base.OnStartup(e);
             try
             {
-                LogManager.GetLogger(typeof(EsriWpfApp)).Info("=====================================================");
-                LogManager.GetLogger(typeof(EsriWpfApp)).Info("Start Product");
+                Logger.Log("=====================================================");
+                Logger.Log("Initialize license");
                 InitializeEngineLicense();
-                LogManager.GetLogger(typeof(EsriWpfApp)).Info("Initialized license");
+                Logger.Log("License was initialized");
             }
             catch (Exception ex)
             {
-                LogManager.GetLogger("ErrorLogger").Fatal("Cannot initailize license", ex);
+                Logger.Error("Cannot initailize license", ex);
                 Application.Current.Shutdown();
             }
         }
@@ -30,8 +31,8 @@ namespace Sopfim.CustomControls
         {
             ESRI.ArcGIS.ADF.COMSupport.AOUninitialize.Shutdown();
             _oInitialize.Shutdown();
-            LogManager.GetLogger(typeof(EsriWpfApp)).Info("Shutdown the license");
-            LogManager.GetLogger(typeof(EsriWpfApp)).Info("=====================================================");
+            Logger.Log("Shutdown the license");
+            Logger.Log("=====================================================");
             base.OnExit(e);
         }
 

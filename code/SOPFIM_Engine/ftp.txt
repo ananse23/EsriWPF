@@ -3,8 +3,8 @@ queadmin
 gaspe
 cd outgoing
 cd SOPFIM
-mkdir setup_2012_10_30
-cd setup_2012_10_30
+mkdir setup_2012_11_05
+cd setup_2012_11_05
 binary
 put SopfimMessageSetup/Debug/Sopfim_Suivi_Message_Setup.msi
 put SopfimMessageSetup/Debug/setup.exe

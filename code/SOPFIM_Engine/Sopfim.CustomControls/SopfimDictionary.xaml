@@ -3,7 +3,6 @@
     <!--<Converters:IsDirtyTextConverter x:Key="_isDirtyConverter" />
     <Converters:GridBorderConverter x:Key="_gridConverter" />
     <Converters:GridBorderThicknessConverter x:Key="_gridThicknessConverter" />-->
-
     <Style x:Key="_generalControl" TargetType="FrameworkElement">
         <Setter Property="Height" Value="23" />
         <Setter Property="Margin" Value="15,0,0,0" />

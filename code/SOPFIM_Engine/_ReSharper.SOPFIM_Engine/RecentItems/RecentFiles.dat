@@ -1,66 +1,66 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="0FE14C02-9417-44CF-BB51-6418A45F3A66/f:App.xaml" caret="493" fromTop="7" />
-    <File id="0FE14C02-9417-44CF-BB51-6418A45F3A66/f:MainWindow.xaml" caret="3312" fromTop="10" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:App.xaml.cs" caret="564" fromTop="19" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:App.xaml" caret="0" fromTop="0" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml.cs" caret="1399" fromTop="28" />
-    <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:Logger.cs" caret="371" fromTop="14" />
-    <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:WindowViewModel.cs" caret="3065" fromTop="65" />
-    <File id="99726923-18BD-4F94-96DB-E7066AD70FE9/d:Converters/f:AmPmConverterTest.cs" caret="116" fromTop="6" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml" caret="450" fromTop="6" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:SopfimDictionary.xaml" caret="417" fromTop="6" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:EsriWpfApp.cs" caret="1166" fromTop="0" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="4885" fromTop="21" />
     <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:ZoomToLayer.cs" caret="481" fromTop="19" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="8713" fromTop="18" />
     <File id="99726923-18BD-4F94-96DB-E7066AD70FE9/d:Domain/f:MessageTest.cs" caret="0" fromTop="0" />
-    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:IRepository.cs" caret="128" fromTop="6" />
-    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:Repository.cs" caret="764" fromTop="20" />
-    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:IDataService.cs" caret="443" fromTop="13" />
-    <File id="99726923-18BD-4F94-96DB-E7066AD70FE9/d:mvvm/f:EditableDataViewModelTest.cs" caret="3372" fromTop="8" />
     <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:BufferLvTbe.cs" caret="0" fromTop="0" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:BlocTBE.cs" caret="805" fromTop="29" />
     <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:DomainRecord.cs" caret="0" fromTop="0" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:EditableEntity.cs" caret="0" fromTop="0" />
     <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:SuiviDev.cs" caret="0" fromTop="0" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="0" fromTop="0" />
     <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:SuiviPulverisation.cs" caret="546" fromTop="19" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:App.config" caret="485" fromTop="11" />
-    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:DataService.cs" caret="2980" fromTop="44" />
-    <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:EditableDataViewModel.cs" caret="2405" fromTop="17" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageEntityViewModel.cs" caret="606" fromTop="6" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:BlocTBE.cs" caret="0" fromTop="0" />
+    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:DatabaseTableNames.cs" caret="723" fromTop="15" />
+    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:IRepository.cs" caret="0" fromTop="0" />
+    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:Repository.cs" caret="294" fromTop="9" />
+    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:IDataService.cs" caret="172" fromTop="7" />
+    <File id="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72/f:DataService.cs" caret="1117" fromTop="35" />
+    <File id="99726923-18BD-4F94-96DB-E7066AD70FE9/d:mvvm/f:EditableDataViewModelTest.cs" caret="3228" fromTop="17" />
+    <File id="0FE14C02-9417-44CF-BB51-6418A45F3A66/f:MainWindow.xaml" caret="1119" fromTop="10" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/f:App.xaml.cs" caret="621" fromTop="18" />
+    <File id="0FE14C02-9417-44CF-BB51-6418A45F3A66/f:App.xaml.cs" caret="88" fromTop="3" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:App.xaml.cs" caret="598" fromTop="20" />
+    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:EsriWpfApp.cs" caret="414" fromTop="17" />
+    <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:MainWindowViewModel.cs" caret="570" fromTop="0" />
+    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="3595" fromTop="16" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:App.config" caret="1588" fromTop="21" />
+    <File id="F8AC7296-4586-4FA6-9E1B-81C7936DA02F/f:Logger.cs" caret="391" fromTop="15" />
+    <File id="F8AC7296-4586-4FA6-9E1B-81C7936DA02F/f:ObjectCopier.cs" caret="755" fromTop="19" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:EditableEntity.cs" caret="0" fromTop="0" />
+    <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:EditableDataViewModel.cs" caret="1944" fromTop="22" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml.cs" caret="736" fromTop="18" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageEntityViewModel.cs" caret="6317" fromTop="15" />
+    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:SopfimDictionary.xaml" caret="382" fromTop="0" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="14694" fromTop="22" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="11599" fromTop="30" />
   </RecentFiles>
   <RecentEdits>
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="2564" fromTop="18" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="1681" fromTop="12" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="2039" fromTop="2" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="2499" fromTop="25" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="2795" fromTop="18" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:EsriWpfApp.cs" caret="1075" fromTop="12" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:ZoomToLayer.cs" caret="683" fromTop="17" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="5000" fromTop="16" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="5000" fromTop="16" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="1252" fromTop="9" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="2792" fromTop="15" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="5177" fromTop="17" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="5000" fromTop="19" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="346" fromTop="14" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="127" fromTop="5" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="3918" fromTop="25" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="1555" fromTop="18" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:ZoomToLayer.cs" caret="481" fromTop="19" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="729" fromTop="14" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="2990" fromTop="17" />
-    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="4885" fromTop="21" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="4403" fromTop="22" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:BlocTBE.cs" caret="1758" fromTop="35" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:BufferLvTbe.cs" caret="1586" fromTop="35" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="9818" fromTop="35" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="80" fromTop="5" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="6975" fromTop="31" />
-    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="9430" fromTop="20" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageEntityViewModel.cs" caret="5237" fromTop="20" />
-    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageEntityViewModel.cs" caret="7090" fromTop="18" />
+    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:MapControl.xaml.cs" caret="313" fromTop="11" />
+    <File id="F8AC7296-4586-4FA6-9E1B-81C7936DA02F/f:Logger.cs" caret="378" fromTop="14" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:App.config" caret="1153" fromTop="10" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml.cs" caret="772" fromTop="18" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml.cs" caret="1075" fromTop="23" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml.cs" caret="623" fromTop="11" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="10605" fromTop="35" />
+    <File id="F8AC7296-4586-4FA6-9E1B-81C7936DA02F/f:ObjectCopier.cs" caret="242" fromTop="9" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="12788" fromTop="30" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:EditableEntity.cs" caret="48" fromTop="5" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:EditableEntity.cs" caret="0" fromTop="0" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageEntityViewModel.cs" caret="6352" fromTop="20" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="54" fromTop="2" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="197" fromTop="9" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="7382" fromTop="12" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="7502" fromTop="30" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="9218" fromTop="18" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="8897" fromTop="14" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="9391" fromTop="25" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="7502" fromTop="9" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="14694" fromTop="11" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="15683" fromTop="25" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="9265" fromTop="25" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="9561" fromTop="33" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageEntityViewModel.cs" caret="4757" fromTop="22" />
+    <File id="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1/f:SopfimDictionary.xaml" caret="382" fromTop="5" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="708" fromTop="10" />
+    <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="9020" fromTop="18" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="11072" fromTop="21" />
+    <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:Message.cs" caret="11122" fromTop="25" />
   </RecentEdits>
 </RecentFiles>

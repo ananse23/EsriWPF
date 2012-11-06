@@ -110,6 +110,10 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Esri.CommonUtils\Esri.CommonUtils.csproj">
+      <Project>{F8AC7296-4586-4FA6-9E1B-81C7936DA02F}</Project>
+      <Name>Esri.CommonUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SOPFIM.DataLayer\SOPFIM.DataLayer.csproj">
       <Project>{8BB69E4C-A642-4B43-A9EF-D85A7F09EB72}</Project>
       <Name>SOPFIM.DataLayer</Name>

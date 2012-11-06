@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="ORMapping, Version=1.6.0.2, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -53,11 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditableDataViewModel.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Esri.CommonUtils\Esri.CommonUtils.csproj">
+      <Project>{F8AC7296-4586-4FA6-9E1B-81C7936DA02F}</Project>
+      <Name>Esri.CommonUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sopfim.CustomControls\Sopfim.CustomControls.csproj">
       <Project>{D76A28F1-70E8-4285-BFEA-8D8836EBF9C1}</Project>
       <Name>Sopfim.CustomControls</Name>

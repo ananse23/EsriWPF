@@ -118,6 +118,10 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Esri.CommonUtils\Esri.CommonUtils.csproj">
+      <Project>{F8AC7296-4586-4FA6-9E1B-81C7936DA02F}</Project>
+      <Name>Esri.CommonUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sopfim.CustomControls\Sopfim.CustomControls.csproj">
       <Project>{D76A28F1-70E8-4285-BFEA-8D8836EBF9C1}</Project>
       <Name>Sopfim.CustomControls</Name>

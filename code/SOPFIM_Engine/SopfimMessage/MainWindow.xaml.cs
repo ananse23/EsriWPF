@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows;
+using Esri.CommonUtils;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
 using Sopfim.ViewModels;
 using SopfimMessage.ViewModel;
-using log4net;
 
 namespace SopfimMessage
 {
@@ -21,20 +21,17 @@ namespace SopfimMessage
             _mapService = (IMapControl) _mapControl;
         }
 
-        private void _mapControl_MapLoaded(object sender, System.EventArgs e)
+        private void _mapControl_MapLoaded(object sender, EventArgs e)
         {
             try
             {
-                
-                Logger.Log(typeof(MainWindow), "map was successfuly loaded");
                 var fileGeodatabase = ConfigurationManager.AppSettings["fileGeodatabase"];
-                Logger.Log(typeof(MainWindow), "Loading data...: " + fileGeodatabase);
                 var model =
                         new MainWindowViewModel<MessageEntityViewModel, Message>(
                             fileGeodatabase, _mapService);
                 model.InitializeDataModel();
                 this.DataContext = model;
-                LogManager.GetLogger(typeof(MainWindow)).Info("Finish loaded data: " + fileGeodatabase);
+                Logger.Log("Finish loading data: " + fileGeodatabase);
             }
             
             catch (Exception exception)

@@ -1,11 +1,14 @@
 ﻿using System;
-using Microsoft.Practices.Prism.Commands;
+using System.Text.RegularExpressions;
 using ORMapping;
 
 namespace SOPFIM.Domain
 {
-    public class Message : EditableEntity
+    public class Message : EditableEntity, ICloneable
     {
+
+        const string SparyLinePattern = @"\d\-\d";
+
         private int? _messagesID;
         [MappedField("MessagesID")]
         public int? MessagesID
@@ -312,9 +315,24 @@ namespace SOPFIM.Domain
             set
             {
                 if (_lvTr == value) return;
-                _lvTr = value;
-                RaisePropertyChanged("LvTr");
-                IsDirty = true;
+                /*bool isValid;
+                if (string.IsNullOrEmpty(value))
+                    isValid = true;
+                else
+                {
+                    var sprayLineValidator = new Regex(SparyLinePattern);
+                    isValid = sprayLineValidator.IsMatch(value);
+                }
+                if (isValid)
+                {*/
+                    _lvTr = value;
+                    RaisePropertyChanged("LvTr");
+                    IsDirty = true;
+                /*}
+                else
+                {
+                    throw new ArgumentException("LvTR should be in the format: 10-20");
+                }*/
             }
         }
 
@@ -351,20 +369,57 @@ namespace SOPFIM.Domain
             }
         }
 
-        /*private DelegateCommand _splitMessage;
-        public DelegateCommand SplitMessage
+        public Message NextMessageForSpray { get; set; }
+
+        public Message PreviousMessageForSpray { get; set; }
+
+        public Message SplitMessageSpray()
         {
-            get
+            var newMessage = (Message) this.Clone();
+            if (string.IsNullOrEmpty(this.LvTr))
+                newMessage.LvOuv30m = null;
+            else
             {
-                return _splitMessage ?? (_splitMessage = new DelegateCommand(SplitCurrentMessage));
+                if (!string.IsNullOrEmpty(this.LvOuv30m))
+                {
+                    var newValue = this.LvTr.Split('-')[1] + "-" + this.LvOuv30m.Split('-')[1];
+                    newMessage.LvOuv30m = newValue;
+                }
             }
+            
+            return newMessage;
         }
 
-        private void SplitCurrentMessage()
+        public object Clone()
         {
-            
+            var message = new Message
+                              {
+                                  AppPrevue = this.AppPrevue,
+                                  Application = this.Application,
+                                  DateMessages = this.DateMessages,
+                                  DateOuverture = this.DateOuverture,
+                                  DatePrevision = this.DatePrevision,
+                                  MessagesID = this.MessagesID,
+                                  NomBase = this.NomBase,
+                                  NoBloc = this.NoBloc,
+                                  TypeBloc = this.TypeBloc,
+                                  TimingIDI = this.TimingIDI,
+                                  Produit = this.Produit,
+                                  LarvesBr = this.LarvesBr,
+                                  Prescription = this.Prescription,
+                                  InterApp = this.InterApp,
+                                  PrioriteEtat = this.PrioriteEtat,
+                                  Ouvert_1jr = this.Ouvert_1jr,
+                                  NbreLv30m = this.NbreLv30m,
+                                  LvOuv30m = this.LvOuv30m,
+                                  LvOuv80m = this.LvOuv80m,
+                                  LvOuv100m = this.LvOuv100m,
+                                  DateTr = this.DateTr,
+                                  LvTr = this.LvTr,
+                                  EtatBloc = this.EtatBloc,
+                                  Remarque = this.Remarque
+                              };
+            return message;
         }
-*/
-        
     }
 }

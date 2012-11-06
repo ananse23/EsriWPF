@@ -9,9 +9,7 @@ using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Controls;
 using ESRI.ArcGIS.Geometry;
 using ESRI.ArcGIS.SystemUI;
-
-using ESRI.ArcGIS.esriSystem;
-using log4net;
+using Esri.CommonUtils;
 
 namespace Sopfim.CustomControls
 {
@@ -51,7 +49,7 @@ namespace Sopfim.CustomControls
                 _contextMenu = CreateContextMenu(_mapControl);
                 _tocControl.OnMouseDown += new ITOCControlEvents_Ax_OnMouseDownEventHandler(axTocControl_OnMouseDown);
 
-                LogManager.GetLogger(typeof(MapControl)).Info("Loaded Map: " + _mxdFile);
+                Logger.Log("Loaded Map: " + _mxdFile);
             }
             catch(TargetInvocationException exception)
             {
@@ -63,8 +61,8 @@ namespace Sopfim.CustomControls
             }
             catch (Exception exception)
             {
-                LogManager.GetLogger("ErrorLogger").Fatal("Error Initializing the map", exception);
-                LogManager.GetLogger("ErrorLogger").Fatal("the map file should be in the location: " + _mxdFile);
+                Logger.Error("Error Initializing the map", exception);
+                Logger.Error("the map file should be in the location: " + _mxdFile, null);
                 throw;
             }
         }

@@ -7,4 +7,5 @@
   <Module PersistentId="D0471E03-30E4-4AFB-9C59-E85FADFBD327" ModuleId="SOPFIM.Domain" />
   <Module PersistentId="99726923-18BD-4F94-96DB-E7066AD70FE9" ModuleId="Sopfim.Unittest" />
   <Module PersistentId="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD" ModuleId="SopfimPulverisation" />
+  <Module PersistentId="F8AC7296-4586-4FA6-9E1B-81C7936DA02F" ModuleId="Esri.CommonUtils" />
 </Modules>

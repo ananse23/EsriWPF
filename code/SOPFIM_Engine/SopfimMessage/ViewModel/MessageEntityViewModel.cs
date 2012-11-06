@@ -7,6 +7,7 @@ using Microsoft.Practices.Prism.Commands;
 using SOPFIM.DataLayer;
 using SOPFIM.Domain;
 using Sopfim.ViewModels;
+using Xceed.Wpf.Toolkit;
 
 namespace SopfimMessage.ViewModel
 {
@@ -52,6 +53,14 @@ namespace SopfimMessage.ViewModel
                 RaisePropertyChanged("BlocType");
                 QueryData();
             }
+        }
+
+        private Message _selectedMessage;
+        public Message SelectedMessage
+        {
+            get { return _selectedMessage; }
+            set { _selectedMessage = value;
+            RaisePropertyChanged("SelectedMessage");}
         }
 
         private string _blocNumber;
@@ -132,6 +141,16 @@ namespace SopfimMessage.ViewModel
             }
         }
 
+        private DelegateCommand _splitMessage;
+        public DelegateCommand SplitMessage
+        {
+            get
+            {
+                return _splitMessage ?? (_splitMessage = new DelegateCommand(SplitSelectedMessage));
+            }
+        }
+
+
         private DelegateCommand<string> _locate;
         public DelegateCommand<string> Locate
         {
@@ -169,6 +188,13 @@ namespace SopfimMessage.ViewModel
             {
                 return _newMessage ?? (_newMessage = new DelegateCommand(CreateNewMessage, () => this.IsReadOnly));
             }
+        }
+
+        private void SplitSelectedMessage()
+        {
+            var newMessage = this.SelectedMessage.SplitMessageSpray();
+            newMessage.IsDirty = true;
+            DataList.Insert(DataList.IndexOf(this.SelectedMessage) + 1, newMessage);
         }
 
         private void CreateNewMessage()

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using Esri.CommonUtils;
 using Microsoft.Practices.Prism.ViewModel;
 using SOPFIM.DataLayer;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
-using log4net;
 using System.Linq;
 
 namespace Sopfim.ViewModels
@@ -56,7 +56,7 @@ namespace Sopfim.ViewModels
 
         private void GetGeodatabaseDomains()
         {
-            LogManager.GetLogger(typeof(MainWindowViewModel<TModel, TEntity>)).Info("retreiving lookup domains");
+            Logger.Log("retreiving lookup domains");
             this.TimingValues = _service.GetDomain(DatabaseTableNames.TimingValues);
             this.ProduitValues = _service.GetDomain(DatabaseTableNames.ProduitValues);
             this.PerscriptionValues = _service.GetDomain(DatabaseTableNames.PerscriptionValues);
