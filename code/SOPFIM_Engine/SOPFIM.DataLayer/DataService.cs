@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -16,12 +15,17 @@ namespace SOPFIM.DataLayer
         private readonly FileGDBWorkspaceFactory _workspaceFactory;
         private readonly IFeatureWorkspace _featureWorkspace;
 
-        public DataService(string fileGeodatabase)
+        public DataService(string fileGeodatabase) : this(new FileGDBWorkspaceFactory(), fileGeodatabase)
+        {
+
+        }
+
+        public DataService(FileGDBWorkspaceFactory workspace, string fileGeodatabase) 
         {
             try
             {
-            _workspaceFactory = new FileGDBWorkspaceFactory();
-            _featureWorkspace = (IFeatureWorkspace)_workspaceFactory.OpenFromFile(fileGeodatabase, 0);
+                _workspaceFactory = workspace;
+                _featureWorkspace = (IFeatureWorkspace)_workspaceFactory.OpenFromFile(fileGeodatabase, 0);
 
             }
             catch (COMException exception)
@@ -29,7 +33,7 @@ namespace SOPFIM.DataLayer
                 if (exception.ErrorCode == -2147467259)
                     throw new FileNotFoundException(string.Format("File geodatabase {0} was not found", fileGeodatabase), fileGeodatabase);
             }
-
+            
         }
 
         public ITable GetTable(string tableName)
@@ -44,6 +48,20 @@ namespace SOPFIM.DataLayer
             result.ForEach(x => x.IsDirty = false);
             return result;
         }
+
+        public void Save<T>(List<T> listToSave, ITable table) where T: EditableEntity, new()
+        {
+            listToSave.ForEach(y =>
+            {
+                if (y.OID < 0)
+                {
+                    y.InsertInto(table);
+                }
+                else
+                    y.Update();
+            });
+        }
+        
 
 
         public List<DomainRecord> GetDomain(string domainName)

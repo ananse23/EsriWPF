@@ -112,6 +112,7 @@ namespace Sopfim.CustomControls
             axToolbarControl.AddItem("esriControls.ControlsClearSelectionCommand");
             axToolbarControl.AddItem("esriControls.ControlsMapIdentifyTool");
             axToolbarControl.AddItem("esriControls.ControlsMapMeasureTool");
+            axToolbarControl.AddItem("esriControls.ControlsMapZoomToolControl");
             return axToolbarControl;
         }
 

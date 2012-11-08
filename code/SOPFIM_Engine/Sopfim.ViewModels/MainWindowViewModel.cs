@@ -10,7 +10,7 @@ using System.Linq;
 namespace Sopfim.ViewModels
 {
     public class MainWindowViewModel<TModel, TEntity> : NotificationObject where TEntity : EditableEntity, new()
-        where TModel : EditableDataViewModel<TEntity>, new()
+        where TModel : EditableListViewModel<TEntity>, new()
     {
         private readonly IDataService _service;
         private readonly IMapControl _mapService;
@@ -53,6 +53,7 @@ namespace Sopfim.ViewModels
         public List<DomainRecord> BlocNumberValues { get; set; }
         public List<DomainRecord> LargeurValues { get; set; }
         public List<DomainRecord> RaisonValues { get; set; }
+        public List<DomainRecord> BlockStateValues { get; set; }
 
         private void GetGeodatabaseDomains()
         {
@@ -67,6 +68,7 @@ namespace Sopfim.ViewModels
             this.BaseOperationValues = _service.GetDomain(DatabaseTableNames.BaseOperationValues);
             this.LargeurValues = _service.GetDomain(DatabaseTableNames.LargeurValues);
             this.RaisonValues = _service.GetDomain(DatabaseTableNames.RaisonValues);
+            this.BlockStateValues = _service.GetDomain(DatabaseTableNames.EtatBloc);
             GetBlocNumberValues();
         }
 

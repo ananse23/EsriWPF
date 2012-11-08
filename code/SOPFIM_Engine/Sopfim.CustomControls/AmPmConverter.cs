@@ -11,7 +11,7 @@ namespace Sopfim.CustomControls
             var date = value as DateTime?;
             if (date.HasValue)
             {
-                return date.Value.Hour > 12 ? "PM" : "AM";
+                return date.Value.Hour > 11 ? "PM" : "AM";
             }
             else
             {

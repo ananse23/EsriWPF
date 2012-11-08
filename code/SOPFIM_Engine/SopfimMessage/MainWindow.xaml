@@ -35,37 +35,33 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-
-
-
             <Grid x:Name="_editButtonPanel" Grid.Column="0">
+                <Grid.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource _editButtonStyle}">
+                        
+                    </Style>
+                </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" x:Name="_editPanelTop" VerticalAlignment="Bottom">
-                    <Button  Width="80"  Command="{Binding NewMessage}" Height="35" ToolTip="Nouveau message"
-                                    Style="{StaticResource _generalControl}" IsEnabled="{Binding IsReadOnly}">Nouveau</Button>
-                    <Button Style="{StaticResource _generalControl}"
-                                Width="80" Height="35">Synchroniser</Button>
-                    <Button Style="{StaticResource _generalControl}"
-                                Width="80" Height="35">
+                    <Button  Command="{Binding NewMessage}" ToolTip="Nouveau message" IsEnabled="{Binding IsReadOnly}">Nouveau</Button>
+                    <Button>Synchroniser</Button>
+                    <Button>
                         <TextBlock TextAlignment="Center">Envoyer
                         <LineBreak/> un avis</TextBlock>
                     </Button>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" x:Name="_editPanelBottom" VerticalAlignment="Bottom" Grid.Row="1">
-                    <Button Command="{Binding BeginEdit}" Style="{StaticResource _generalControl}"
-                                Width="80" Height="35">Éditer</Button>
-                    <Button Command="{Binding SaveEdit}" Style="{StaticResource _generalControl}"
-                                Width="80" Height="35">
+                    <Button Command="{Binding BeginEdit}">Éditer</Button>
+                    <Button Command="{Binding SaveEdit}">
                         <TextBlock TextAlignment="Center">Enregistrer
                         <LineBreak/> Local</TextBlock>
                     </Button>
-                    <Button Command="{Binding CancelEdit}" Style="{StaticResource _generalControl}"
-                                Width="80" Height="35">Annuler</Button>
+                    <Button Command="{Binding CancelEdit}">Annuler</Button>
                 </StackPanel>
 
 

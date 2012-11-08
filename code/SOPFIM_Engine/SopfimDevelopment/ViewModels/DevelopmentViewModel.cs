@@ -4,7 +4,7 @@ using Sopfim.ViewModels;
 
 namespace SopfimDevelopment.ViewModels
 {
-    public class DevelopmentViewModel : EditableDataViewModel<SuiviDev>
+    public class DevelopmentViewModel : EditableListViewModel<SuiviDev>
     {
         protected override string WhereTemplate
         {

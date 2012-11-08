@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Windows;
+using Esri.CommonUtils;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
 using Sopfim.ViewModels;
@@ -25,8 +26,8 @@ namespace SopfimPulverisation
         {
             try
             {
-                LogManager.GetLogger(typeof(MainWindow)).Info("map was successfully loaded ");
-                LogManager.GetLogger(typeof(MainWindow)).Info("Loading data...: " + ConfigurationManager.AppSettings["fileGeodatabase"]);
+                Logger.Log("map was successfully loaded ");
+                Logger.Log("Loading data...: " + ConfigurationManager.AppSettings["fileGeodatabase"]);
                 var model =
                         new MainWindowViewModel<PulverisationEntityViewModel, SuiviPulverisation>(
                             ConfigurationManager.AppSettings["fileGeodatabase"], _mapService);

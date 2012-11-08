@@ -12,5 +12,6 @@
         public const string BaseOperationValues = "D_BaseOperation";
         public const string LargeurValues = "D_LargeurTr";
         public const string RaisonValues = "D_Raison";
+        public const string EtatBloc = "D_EtatBloc";
     }
 }

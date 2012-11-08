@@ -1,24 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
 using ORMapping;
 using SOPFIM.Domain;
+using Sopfim.CustomControls;
 using Sopfim.ViewModels;
 
 namespace SopfimPulverisation.ViewModels
 {
-    public class PulverisationEntityViewModel : EditableDataViewModel<SuiviPulverisation>
+    public class PulverisationEntityViewModel : EditableListViewModel<SuiviPulverisation>
     {
+        public PulverisationEntityViewModel()
+        {
+            DateRepport = ((DateTime?) DateTime.Now).ToSopfimDateTime();
+        }
+
         protected override string WhereTemplate
         {
-            get { return string.Empty; }
+            get
+            {
+                return "DateRapport = date '{0}' and NomBase = '{1}'";
+            }
         }
 
         protected override string GenerteWhereClause()
         {
-            return "NomBase = 'xxx'";
+            var query = string.Empty;
+            if (this.DateRepport.HasValue)
+                query += string.Format("DateRapport = date '{0}' and ",
+                                       this.DateRepport.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+            if (!string.IsNullOrEmpty(NomBase))
+                query += string.Format("NomBase = '{0}' and ", NomBase);
+            return string.IsNullOrEmpty(query) ? query : query.Substring(0, query.Length - 5);
         }
 
         protected override string TableName
@@ -28,7 +42,7 @@ namespace SopfimPulverisation.ViewModels
 
         public override void InitialQuery()
         {
-            throw new NotImplementedException();
+            base.QueryData();
         }
 
 
@@ -81,7 +95,6 @@ namespace SopfimPulverisation.ViewModels
         }
 
         private string _nomBase;
-
         public string NomBase
         {
             get { return _nomBase; }
@@ -114,6 +127,7 @@ namespace SopfimPulverisation.ViewModels
 
         protected override void SaveDataList()
         {
+            this.DataList.Where(x => x.OID < 0).ToList().ForEach(y => y.IsDirty = true);
             this.DataList.Where(x => x.IsDirty).ToList().ForEach(y =>
             {
                 if (y.OID < 0)
@@ -129,6 +143,9 @@ namespace SopfimPulverisation.ViewModels
                     y.Update();
                 y.IsDirty = false;
             });
+            
         }
+
+        
     }
 }

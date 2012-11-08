@@ -99,7 +99,7 @@ namespace Sopfim.Unittest.mvvm
             _repo.Verify(x => x.Save(_testClass.DataList.ToList().Where(y => y.IsDirty).ToList()));
         }
 
-        public class TestClass : EditableDataViewModel<Message>
+        public class TestClass : EditableListViewModel<Message>
         {
             protected override string WhereTemplate
             {

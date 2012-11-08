@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ESRI.ArcGIS.DataSourcesGDB, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="ESRI.ArcGIS.Geodatabase, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -68,27 +71,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\AmPmConverterTest.cs" />
-    <Compile Include="Domain\MessageTest.cs" />
-    <Compile Include="mvvm\EditableDataViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sopfim.CustomControls\Sopfim.CustomControls.csproj">
-      <Project>{D76A28F1-70E8-4285-BFEA-8D8836EBF9C1}</Project>
-      <Name>Sopfim.CustomControls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SOPFIM.DataLayer\SOPFIM.DataLayer.csproj">
       <Project>{8BB69E4C-A642-4B43-A9EF-D85A7F09EB72}</Project>
       <Name>SOPFIM.DataLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SOPFIM.Domain\SOPFIM.Domain.csproj">
-      <Project>{D0471E03-30E4-4AFB-9C59-E85FADFBD327}</Project>
-      <Name>SOPFIM.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sopfim.ViewModels\Sopfim.ViewModels.csproj">
-      <Project>{77B3C7F7-AB83-4747-8620-F4D784C6606C}</Project>
-      <Name>Sopfim.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

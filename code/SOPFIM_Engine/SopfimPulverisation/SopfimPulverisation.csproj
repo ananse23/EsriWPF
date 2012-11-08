@@ -134,10 +134,6 @@
       <Project>{D0471E03-30E4-4AFB-9C59-E85FADFBD327}</Project>
       <Name>SOPFIM.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sopfim.ViewModels\Sopfim.ViewModels.csproj">
-      <Project>{77B3C7F7-AB83-4747-8620-F4D784C6606C}</Project>
-      <Name>Sopfim.ViewModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Large\filefind.png" />

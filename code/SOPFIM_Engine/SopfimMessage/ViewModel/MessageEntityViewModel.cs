@@ -11,7 +11,7 @@ using Xceed.Wpf.Toolkit;
 
 namespace SopfimMessage.ViewModel
 {
-    public class MessageEntityViewModel : EditableDataViewModel<Message>
+    public class MessageEntityViewModel : EditableListViewModel<Message>
     {
         private int? _messageNumberBeforeNewMessage;
         private bool _isNew;

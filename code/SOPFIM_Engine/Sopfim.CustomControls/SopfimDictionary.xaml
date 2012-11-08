@@ -22,6 +22,10 @@
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Foreground" Value="Red" />
     </Style>
+    <Style x:Key="_editButtonStyle" TargetType="Button" BasedOn="{StaticResource _generalControl}">
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Height" Value="35" />
+    </Style>
     <DataTemplate x:Key="RedBackground">
         <Grid Background="Red">
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding}"/>
