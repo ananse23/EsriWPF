@@ -1,11 +1,7 @@
 <Modules>
-  <Module PersistentId="D76A28F1-70E8-4285-BFEA-8D8836EBF9C1" ModuleId="Sopfim.CustomControls" />
-  <Module PersistentId="0FE14C02-9417-44CF-BB51-6418A45F3A66" ModuleId="SopfimDevelopment" />
-  <Module PersistentId="4CBB181F-BE84-499F-AFA5-FE6435246E0C" ModuleId="SopfimMessage" />
-  <Module PersistentId="77B3C7F7-AB83-4747-8620-F4D784C6606C" ModuleId="Sopfim.ViewModels" />
   <Module PersistentId="8BB69E4C-A642-4B43-A9EF-D85A7F09EB72" ModuleId="SOPFIM.DataLayer" />
   <Module PersistentId="D0471E03-30E4-4AFB-9C59-E85FADFBD327" ModuleId="SOPFIM.Domain" />
   <Module PersistentId="99726923-18BD-4F94-96DB-E7066AD70FE9" ModuleId="Sopfim.Unittest" />
-  <Module PersistentId="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD" ModuleId="SopfimPulverisation" />
   <Module PersistentId="F8AC7296-4586-4FA6-9E1B-81C7936DA02F" ModuleId="Esri.CommonUtils" />
+  <Module PersistentId="3561D07E-275F-4153-BBCE-D340C67D77F1" ModuleId="Sopfim.BehaviorTest" />
 </Modules>

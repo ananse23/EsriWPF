@@ -53,8 +53,18 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.1\lib\nunit.framework.dll</HintPath>
+    <Reference Include="NBehave.Narrator.Framework">
+      <HintPath>..\packages\nbehave.0.5.1.263\v4.0\NBehave.Narrator.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="NBehave.Spec.Framework">
+      <HintPath>..\packages\nbehave.0.5.1.263\v4.0\NBehave.Spec.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="NBehave.Spec.NUnit">
+      <HintPath>..\packages\nbehave.0.5.1.263\v4.0\NBehave.Spec.NUnit.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\nbehave.0.5.1.263\v4.0\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="ORMapping, Version=1.6.0.2, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -71,6 +81,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayerTest\DataServiceTest.cs" />
+    <Compile Include="DataLayerTest\InitializeDataServiceScenario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +90,14 @@
       <Project>{8BB69E4C-A642-4B43-A9EF-D85A7F09EB72}</Project>
       <Name>SOPFIM.DataLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SOPFIM.Domain\SOPFIM.Domain.csproj">
+      <Project>{D0471E03-30E4-4AFB-9C59-E85FADFBD327}</Project>
+      <Name>SOPFIM.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="DataLayerTest\AddNumbers.feature" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

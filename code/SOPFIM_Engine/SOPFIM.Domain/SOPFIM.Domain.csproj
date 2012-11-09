@@ -55,7 +55,6 @@
     <Compile Include="BufferLvTbe.cs" />
     <Compile Include="DomainRecord.cs" />
     <Compile Include="EditableEntity.cs" />
-    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SuiviDev.cs" />
     <Compile Include="SuiviMessage.cs" />
