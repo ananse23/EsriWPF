@@ -46,16 +46,27 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WPFToolkit.Extended, Version=1.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\wpfextended\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditableListViewModel.cs" />
-    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="EditableListViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindowViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MessageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Esri.CommonUtils\Esri.CommonUtils.csproj">

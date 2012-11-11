@@ -83,6 +83,9 @@
   <ItemGroup>
     <Compile Include="DataLayerTest\DataServiceTest.cs" />
     <Compile Include="DataLayerTest\InitializeDataServiceScenario.cs" />
+    <Compile Include="Domain\MessageViewModelTest.cs" />
+    <Compile Include="Domain\MessageViewModelScenario.cs" />
+    <Compile Include="mvvm\EditableDataViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +97,10 @@
       <Project>{D0471E03-30E4-4AFB-9C59-E85FADFBD327}</Project>
       <Name>SOPFIM.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DataLayerTest\AddNumbers.feature" />
+    <ProjectReference Include="..\Sopfim.ViewModels\Sopfim.ViewModels.csproj">
+      <Project>{77B3C7F7-AB83-4747-8620-F4D784C6606C}</Project>
+      <Name>Sopfim.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

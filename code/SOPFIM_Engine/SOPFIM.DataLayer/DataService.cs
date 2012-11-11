@@ -45,7 +45,6 @@ namespace SOPFIM.DataLayer
         {
             IQueryFilter filter = string.IsNullOrEmpty(whereClause) ? null : new QueryFilter {WhereClause = whereClause};
             var result = new List<T>(table.Map<T>(filter));
-            result.ForEach(x => x.IsDirty = false);
             return result;
         }
 

@@ -17,7 +17,7 @@ namespace Sopfim.Unittest.DataLayerTest
                 .Given("file geodatabase exist")
                 .And("passing the file name to data service")
                 .When("initializing the data service")
-                .Then("the data service initialized successfully");
+                .Then("should delegate to workspace");
         }
 
         [Test]
@@ -28,9 +28,20 @@ namespace Sopfim.Unittest.DataLayerTest
                 .WithHelperObject(stepHelper)
                 .Given("data service initialized correctly")
                 .When("call get table")
-                .Then("the table should be not null");
+                .Then("should delegate to workspace");
         }
 
+        // Cannot do it because ORMapping is not testable
+        /*[Test]
+        public void Calling_Query_should_delegate_to_table()
+        {
+            var stepHelper = this;
+            Feature.AddScenario()
+                .WithHelperObject(stepHelper)
+                .Given("file geodatabase exist")
+                .When("call query")
+                .Then("should delegate query to table");
+        }*/
 
         protected override NFeature CreateFeature()
         {

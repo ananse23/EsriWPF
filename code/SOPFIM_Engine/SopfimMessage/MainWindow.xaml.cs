@@ -15,22 +15,24 @@ namespace SopfimMessage
     public partial class MainWindow : Window
     {
         private readonly IMapControl _mapService;
+        private MainWindowViewModel<MessageListViewModel, MessageViewModel> _model;
         public MainWindow()
         {
             InitializeComponent();
             _mapService = (IMapControl) _mapControl;
         }
 
+
         private void _mapControl_MapLoaded(object sender, EventArgs e)
         {
             try
             {
                 var fileGeodatabase = ConfigurationManager.AppSettings["fileGeodatabase"];
-                var model =
-                        new MainWindowViewModel<MessageEntityViewModel, Message>(
+                _model =
+                        new MainWindowViewModel<MessageListViewModel, MessageViewModel>(
                             fileGeodatabase, _mapService);
-                model.InitializeDataModel();
-                this.DataContext = model;
+                _model.InitializeDataModel();
+                this.DataContext = _model;
                 Logger.Log("Finish loading data: " + fileGeodatabase);
             }
             
@@ -39,6 +41,11 @@ namespace SopfimMessage
                 Logger.Error("error getting data", exception);
                 Xceed.Wpf.Toolkit.MessageBox.Show("Error: " + exception.Message);
             }
+        }
+
+        private void _tabularData_CurrentCellChanged(object sender, EventArgs e)
+        {
+            _model.DataViewModel.SetSelectedRecordAsDirty();
         }
     }
 }

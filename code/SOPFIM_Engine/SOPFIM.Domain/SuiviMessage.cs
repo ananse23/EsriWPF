@@ -3,7 +3,7 @@ using ORMapping;
 
 namespace SOPFIM.Domain
 {
-    public class SuiviMessage : MappableFeature
+    public class SuiviMessage : EditableEntity
     {
         [MappedField("MessagesID")]
         public virtual int? MessagesID { get; set; }

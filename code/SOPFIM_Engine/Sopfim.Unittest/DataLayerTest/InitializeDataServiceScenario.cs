@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using ESRI.ArcGIS.DataSourcesGDB;
 using ESRI.ArcGIS.Geodatabase;
 using Moq;
 using NBehave.Spec.NUnit;
+using ORMapping;
 using SOPFIM.DataLayer;
+using SOPFIM.Domain;
 
 namespace Sopfim.Unittest.DataLayerTest
 {
@@ -13,12 +16,16 @@ namespace Sopfim.Unittest.DataLayerTest
         protected Mock<FileGDBWorkspaceFactory> WorkspaceFactory;
         protected Mock<IFeatureWorkspace> Workspace;
         protected Mock<ITable> Table;
-
+        protected List<SuiviMessage> Data;
         public virtual void Given_file_geodatabase_exist()
         {
             WorkspaceFactory = new Mock<FileGDBWorkspaceFactory>();
             Workspace = new Mock<IFeatureWorkspace>();
             Table = new Mock<ITable>();
+            Data = new List<SuiviMessage>()
+                       {
+                           new SuiviMessage() {IsDirty = true}
+                       };
         }
 
         public void Given_data_service_initialized_correctly()
@@ -40,24 +47,29 @@ namespace Sopfim.Unittest.DataLayerTest
             DataService = new DataService(WorkspaceFactory.Object, "fgdb");
         }
 
-        
 
         public void When_call_get_table()
         {
             Workspace.Setup(x => x.OpenTable("anytable")).Returns(Table.Object);
-            
+            DataService.GetTable("anytable");
         }
 
-        public void Then_the_table_should_be_not_null()
+        public void When_call_query()
         {
-            var table = DataService.GetTable("anytable");
-            table.ShouldNotBeNull();
+            Table.Setup(x => x.Map<SuiviMessage>(It.Is<IQueryFilter>(q => q.WhereClause == "where")))
+                .Returns(Data);
+            DataService.GeneralQuery<SuiviMessage>(Table.Object, "where");
         }
 
-        public void Then_the_data_service_initialized_successfully()
+        public void Then_should_delegate_query_to_table()
         {
-            DataService.ShouldNotBeNull();
+            Table.VerifyAll();
         }
-        
+
+        public void Then_should_delegate_to_workspace()
+        {
+            WorkspaceFactory.VerifyAll();
+            Workspace.VerifyAll();
+        }
     }
 }

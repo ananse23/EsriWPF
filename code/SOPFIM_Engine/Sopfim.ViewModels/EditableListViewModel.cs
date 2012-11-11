@@ -1,35 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using ESRI.ArcGIS.Geodatabase;
 using Esri.CommonUtils;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
-using ORMapping;
 using SOPFIM.DataLayer;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
+using Xceed.Wpf.Toolkit;
 
 
 namespace Sopfim.ViewModels
 {
     public abstract class EditableListViewModel<T> : NotificationObject where T : EditableEntity, new()
     {
+        protected EditableListViewModel()
+        {
+            EditEffectedCommands = new List<DelegateCommand>() {BeginEdit, CancelEdit, SaveEdit};
+            IsReadOnly = true;
+        }
+
+        #region properties
+
         private IDataService _dataService;
         public IDataService DataService
         {
             get { return _dataService; }
-            set { _dataService = value;
-                Repository = new Repository<T>(_dataService, TableName);
+            set { 
+                _dataService = value;
+                DataListTable = _dataService.GetTable(this.TableName);
             }
         }
         public IMapControl MapService { get; set; }
-        public IRepository<T> Repository { get; set; }
-
-        protected EditableListViewModel()
-        {
-            IsReadOnly = true;
-        }
+        protected ITable DataListTable;
+        
+        
 
         private bool _isReadOnly;
         public bool IsReadOnly
@@ -39,9 +47,7 @@ namespace Sopfim.ViewModels
             {
                 _isReadOnly = value;
                 RaisePropertyChanged("IsReadOnly");
-                BeginEdit.RaiseCanExecuteChanged();
-                SaveEdit.RaiseCanExecuteChanged();
-                CancelEdit.RaiseCanExecuteChanged();
+                EditEffectedCommands.ForEach(x => x.RaiseCanExecuteChanged());
             }
         }
 
@@ -55,6 +61,29 @@ namespace Sopfim.ViewModels
                 RaisePropertyChanged("DataList");
             }
         }
+
+        private T _selectedRecord;
+        public T SelectedRecord
+        {
+            get { return _selectedRecord; }
+            set
+            {
+                _selectedRecord = value;
+                RaisePropertyChanged("SelectedRecord");
+            }
+        }
+
+        public void SetSelectedRecordAsDirty()
+        {
+            if (SelectedRecord != null)
+                SelectedRecord.IsDirty = true;
+        }
+
+        #endregion 
+
+        #region commands
+        protected List<DelegateCommand> EditEffectedCommands;
+
 
         private DelegateCommand _beginEdit;
         public DelegateCommand BeginEdit
@@ -75,18 +104,6 @@ namespace Sopfim.ViewModels
             }
         }
 
-        protected virtual void SaveData()
-        {
-            SaveDataList();
-            this.IsReadOnly = true;
-        }
-
-        protected virtual void CancelData()
-        {
-            QueryData();
-            this.IsReadOnly = true;
-        }
-
         private DelegateCommand _cancelEdit;
         public DelegateCommand CancelEdit
         {
@@ -95,43 +112,59 @@ namespace Sopfim.ViewModels
                 return _cancelEdit ?? (_cancelEdit = new DelegateCommand(CancelData, () => !this.IsReadOnly));
             }
         }
+        #endregion 
+
+        #region data methods
+        protected virtual void SaveData()
+        {
+            SaveDataList();
+            this.IsReadOnly = true;
+        }
+
+        protected virtual void CancelData()
+        {
+            QueryCurrentSelection();
+            this.IsReadOnly = true;
+        }
 
         protected virtual void SaveDataList()
         {
-            this.DataList.Where(x => x.IsDirty).ToList().ForEach(y =>
-            {
-                if (y.OID < 0)
-                {
-                    y.InsertInto(DataService.GetTable(TableName));
-                }
-                else
-                    y.Update();
-                y.IsDirty = false;
-            });
+            var dirtyList = this.DataList.Where(x => x.IsDirty).ToList();
+            DataService.Save(dirtyList, DataListTable);
+            dirtyList.ForEach(x => x.IsDirty = false);
         }
 
-        protected abstract string WhereTemplate { get; }
         protected abstract string GenerteWhereClause();
         protected abstract string TableName { get; }
         public abstract void InitialQuery();
-        
 
+        public virtual void QueryCurrentSelection()
+        {
+            this.DataList = new ObservableCollection<T>(this.QueryListData(GenerteWhereClause()));
+        }
 
-        public virtual void QueryData()
+        public virtual List<T> QueryListData(string whereClause)
         {
             try
             {
-                var query = GenerteWhereClause();
+                var query = whereClause;
                 Logger.Log("retreiving data with where caluse: " + query);
-                this.DataList = new ObservableCollection<T>(Repository.QueryData(query));
-                Logger.Log("retreived " +
-                            DataList.Count.ToString(CultureInfo.InvariantCulture) + " records");
+                var list = new ObservableCollection<T>(DataService.GeneralQuery<T>(this.DataListTable, query));
+                Logger.Log("retreived " + list.Count.ToString(CultureInfo.InvariantCulture) + " records");
+                var newList = list.ToList();
+                newList.ForEach(x => x.IsDirty = false);
+                return newList;
             }
             catch (Exception exception)
             {
                 Logger.Error("Error reading the data", exception);
                 throw;
             }
+
         }
+        #endregion
+
+       
+    
     }
 }

@@ -84,10 +84,11 @@
                           SelectedValuePath="Code" DisplayMemberPath="Description" SelectedValue="{Binding Raison}" Width="150"  VerticalAlignment="Center"/>
                 </StackPanel>
 
-                <TextBlock Text="Base d'arrosage" Style="{StaticResource _filterTextBlock}" Grid.Column="0" Grid.Row="2"/>
-                <ComboBox x:Name="_inputBase" ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BlocTypeValues}" 
-                          SelectedValuePath="Code" DisplayMemberPath="Description" SelectedValue="{Binding NomBase}" 
-                     Style="{StaticResource _generalControl}" Width="110" Grid.Row="2" Grid.Column="1"/>
+                <TextBlock Text="Base d'opération"  Style="{StaticResource _filterTextBlock}" Grid.Column="0" Grid.Row="2"/>
+                <ComboBox x:Name="_operationSelector" ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BaseOperationValues}" 
+                              SelectedValuePath="Code" DisplayMemberPath="Description" 
+                              SelectedValue="{Binding BaseOperation}" Width="110" Grid.Row="2" Grid.Column="1"
+                    Style="{StaticResource _generalControl}"  />
                 <TextBlock Text="Volume par base:" Style="{StaticResource _filterTextBlock}" Grid.Column="2" Grid.Row="2"/>
                 
                 <TextBlock Text="Volume du programme" Style="{StaticResource _filterTextBlock}" Grid.Column="3" Grid.Row="1"/>

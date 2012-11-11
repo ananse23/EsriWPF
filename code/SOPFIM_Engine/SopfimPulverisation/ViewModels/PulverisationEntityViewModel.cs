@@ -13,15 +13,8 @@ namespace SopfimPulverisation.ViewModels
     {
         public PulverisationEntityViewModel()
         {
-            DateRepport = ((DateTime?) DateTime.Now).ToSopfimDateTime();
-        }
-
-        protected override string WhereTemplate
-        {
-            get
-            {
-                return "DateRapport = date '{0}' and NomBase = '{1}'";
-            }
+            _dateRapport = ((DateTime?) DateTime.Now).ToSopfimDateTime();
+            _baseOperation = "Baie-Comeau";
         }
 
         protected override string GenerteWhereClause()
@@ -30,8 +23,14 @@ namespace SopfimPulverisation.ViewModels
             if (this.DateRepport.HasValue)
                 query += string.Format("DateRapport = date '{0}' and ",
                                        this.DateRepport.Value.ToString("yyyy-MM-dd HH:mm:ss"));
-            if (!string.IsNullOrEmpty(NomBase))
-                query += string.Format("NomBase = '{0}' and ", NomBase);
+            if (!string.IsNullOrEmpty(this.BaseOperation))
+                query += string.Format("NomBase = '{0}' and ", BaseOperation);
+            if (Traitement.HasValue)
+                query += string.Format("Traitement = '{0}' and ", Traitement.Value ? "Oui" : "Non");
+            if (!string.IsNullOrEmpty(this.Raison))
+                query += string.Format("Raison = '{0}' and ", Raison);
+//            if (!string.IsNullOrEmpty(NomBase))
+//                query += string.Format("NomBase = '{0}' and ", NomBase);
             return string.IsNullOrEmpty(query) ? query : query.Substring(0, query.Length - 5);
         }
 
@@ -42,12 +41,11 @@ namespace SopfimPulverisation.ViewModels
 
         public override void InitialQuery()
         {
-            base.QueryData();
+            QueryCurrentSelection();
         }
 
 
         private DateTime? _dateRapport;
-
         public DateTime? DateRepport
         {
             get { return _dateRapport; }
@@ -55,23 +53,20 @@ namespace SopfimPulverisation.ViewModels
             {
                 _dateRapport = value;
                 RaisePropertyChanged("DateRepport");
+                QueryCurrentSelection();
             }
         }
 
-        private string _periode;
-
-        public string Periode
+        private string _baseOperation;
+        public string BaseOperation
         {
-            get { return _periode; }
-            set
-            {
-                _periode = value;
-                RaisePropertyChanged("Periode");
+            get { return _baseOperation; }
+            set { _baseOperation = value;
+            RaisePropertyChanged("BaseOperation");
             }
         }
 
         private bool? _traitement;
-
         public bool? Traitement
         {
             get { return _traitement; }
@@ -79,6 +74,7 @@ namespace SopfimPulverisation.ViewModels
             {
                 _traitement = value;
                 RaisePropertyChanged("Traitement");
+                QueryCurrentSelection();
             }
         }
 
@@ -91,20 +87,11 @@ namespace SopfimPulverisation.ViewModels
             {
                 _raison = value;
                 RaisePropertyChanged("Raison");
+                QueryCurrentSelection();
             }
         }
 
-        private string _nomBase;
-        public string NomBase
-        {
-            get { return _nomBase; }
-            set
-            {
-                _nomBase = value;
-                RaisePropertyChanged("NomBase");
-            }
-        }
-
+/*
         private double? _volumeProgram;
         public double? VolumeProgram
         {
@@ -123,26 +110,35 @@ namespace SopfimPulverisation.ViewModels
             }
         }
 
-        public List<string> Periods = new List<string> {"AM", "PM"};
+        public List<string> Periods = new List<string> {"AM", "PM"};*/
 
         protected override void SaveDataList()
         {
-            this.DataList.Where(x => x.OID < 0).ToList().ForEach(y => y.IsDirty = true);
+            this.DataList.ToList().ForEach(y =>
+                    {
+                        y.IsDirty = true;
+                        y.DateRapport = this.DateRepport;
+                        y.Traitement = this.Traitement.HasValue ? (this.Traitement.Value ? "Oui" : "Non") : null;
+                        y.Raison = this.Raison;
+                    });
+            base.SaveDataList();
+/*
             this.DataList.Where(x => x.IsDirty).ToList().ForEach(y =>
             {
                 if (y.OID < 0)
                 {
                     y.DateRapport = this.DateRepport;
-                    this.Traitement = this.Traitement.HasValue && this.Traitement.Value;
-                    y.Traitement = this.Traitement.Value ? "Oui" : "Non";
-                    y.NomBase = this.NomBase;
-                    y.Raison = this.Raison;
+//                    this.Traitement = this.Traitement.HasValue && this.Traitement.Value;
+//                    y.Traitement = this.Traitement.Value ? "Oui" : "Non";
+//                    y.NomBase = this.NomBase;
+//                    y.Raison = this.Raison;
                     y.InsertInto(DataService.GetTable(TableName));
                 }
                 else
                     y.Update();
                 y.IsDirty = false;
             });
+*/
             
         }
 
