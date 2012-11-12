@@ -18,10 +18,10 @@
     <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:MessageViewModel.cs" caret="0" fromTop="0" />
     <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/f:MainWindow.xaml" caret="6017" fromTop="22" />
     <File id="D0471E03-30E4-4AFB-9C59-E85FADFBD327/f:SuiviPulverisation.cs" caret="82" fromTop="0" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/f:MainWindow.xaml" caret="5620" fromTop="29" />
     <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:EditableListViewModel.cs" caret="3577" fromTop="17" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="3949" fromTop="18" />
     <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageListViewModel.cs" caret="3585" fromTop="15" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="863" fromTop="11" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/f:MainWindow.xaml" caret="1" fromTop="0" />
   </RecentFiles>
   <RecentEdits>
     <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:EditableListViewModel.cs" caret="2100" fromTop="30" />
@@ -35,24 +35,24 @@
     <File id="4CBB181F-BE84-499F-AFA5-FE6435246E0C/d:ViewModel/f:MessageListViewModel.cs" caret="7203" fromTop="29" />
     <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="311" fromTop="6" />
     <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="531" fromTop="13" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="1452" fromTop="31" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="1717" fromTop="31" />
     <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/f:MainWindow.xaml" caret="5731" fromTop="26" />
     <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/f:MainWindow.xaml" caret="5731" fromTop="25" />
     <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/f:MainWindow.xaml" caret="5459" fromTop="21" />
     <File id="77B3C7F7-AB83-4747-8620-F4D784C6606C/f:EditableListViewModel.cs" caret="4128" fromTop="21" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2348" fromTop="27" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2640" fromTop="28" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2962" fromTop="26" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="3293" fromTop="18" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2111" fromTop="16" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="3885" fromTop="23" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="4642" fromTop="31" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="4843" fromTop="35" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="3984" fromTop="10" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="4149" fromTop="15" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="1534" fromTop="3" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2042" fromTop="19" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2600" fromTop="28" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2922" fromTop="26" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2340" fromTop="16" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="3548" fromTop="23" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="4469" fromTop="31" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="4670" fromTop="35" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="3647" fromTop="10" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="1799" fromTop="3" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2307" fromTop="19" />
     <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="516" fromTop="13" />
-    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="868" fromTop="11" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2954" fromTop="24" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="2340" fromTop="14" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="1254" fromTop="8" />
+    <File id="04F47AF3-9F10-4D55-A5D0-1BB83C2312AD/d:ViewModels/f:PulverisationEntityViewModel.cs" caret="3949" fromTop="18" />
   </RecentEdits>
 </RecentFiles>
