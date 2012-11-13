@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using ORMapping;
+using ESRI.ArcGIS.Geodatabase;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
 using Sopfim.ViewModels;
 
 namespace SopfimPulverisation.ViewModels
 {
-    public class PulverisationEntityViewModel : EditableListViewModel<SuiviPulverisation>
+    public class PulverisationListViewModel : EditableListViewModel<SuiviPulverisation>
     {
-        public PulverisationEntityViewModel()
+        private ITable _messageTable;
+
+        public PulverisationListViewModel() : base()
         {
             _dateRapport = ((DateTime?) DateTime.Now).ToSopfimDateTime();
             _baseOperation = "Baie-Comeau";
@@ -29,8 +31,6 @@ namespace SopfimPulverisation.ViewModels
                 query += string.Format("Traitement = '{0}' and ", Traitement.Value ? "Oui" : "Non");
             if (!string.IsNullOrEmpty(this.Raison))
                 query += string.Format("Raison = '{0}' and ", Raison);
-//            if (!string.IsNullOrEmpty(NomBase))
-//                query += string.Format("NomBase = '{0}' and ", NomBase);
             return string.IsNullOrEmpty(query) ? query : query.Substring(0, query.Length - 5);
         }
 
@@ -79,7 +79,6 @@ namespace SopfimPulverisation.ViewModels
         }
 
         private string _raison;
-
         public string Raison
         {
             get { return _raison; }
@@ -91,26 +90,6 @@ namespace SopfimPulverisation.ViewModels
             }
         }
 
-/*
-        private double? _volumeProgram;
-        public double? VolumeProgram
-        {
-            get { return _volumeProgram; }
-            set { _volumeProgram = value;
-            RaisePropertyChanged("VolumeProgram");
-            }
-        }
-
-        private double? _volumeCumulatif;
-        public double? VolumeCumulatif
-        {
-            get { return _volumeCumulatif; }
-            set { _volumeCumulatif = value;
-            RaisePropertyChanged("VolumeCumulatif");
-            }
-        }
-
-        public List<string> Periods = new List<string> {"AM", "PM"};*/
 
         protected override void SaveDataList()
         {
@@ -120,28 +99,28 @@ namespace SopfimPulverisation.ViewModels
                         y.DateRapport = this.DateRepport;
                         y.Traitement = this.Traitement.HasValue ? (this.Traitement.Value ? "Oui" : "Non") : null;
                         y.Raison = this.Raison;
+                        y.NomBase = this.BaseOperation;
                     });
             base.SaveDataList();
-/*
-            this.DataList.Where(x => x.IsDirty).ToList().ForEach(y =>
-            {
-                if (y.OID < 0)
-                {
-                    y.DateRapport = this.DateRepport;
-//                    this.Traitement = this.Traitement.HasValue && this.Traitement.Value;
-//                    y.Traitement = this.Traitement.Value ? "Oui" : "Non";
-//                    y.NomBase = this.NomBase;
-//                    y.Raison = this.Raison;
-                    y.InsertInto(DataService.GetTable(TableName));
-                }
-                else
-                    y.Update();
-                y.IsDirty = false;
-            });
-*/
-            
+            SaveMessage(DataList.ToList());
         }
 
+        private void SaveMessage(List<SuiviPulverisation> sprays)
+        {
+            _messageTable = _messageTable ?? DataService.GetTable(ConfigurationManager.AppSettings["MessageTableName"]);
+            sprays.ForEach(x =>
+                               {
+                                   var whereClause = string.Format("NoBloc = '{0}' and DatePrevision = date '{1}'",
+                                                                   x.NoBloc,
+                                                                   x.DateRapport.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                                   var messages = DataService.GeneralQuery<MessageViewModel>(_messageTable, whereClause);
+                                   messages.ToList().ForEach(y =>
+                                                                 {
+                                                                     y.LvTr = "1-20";
+                                                                 });
+                                   //DataService.Save();
+                               });
+        }
         
     }
 }

@@ -29,7 +29,7 @@ namespace SopfimPulverisation
                 Logger.Log("map was successfully loaded ");
                 Logger.Log("Loading data...: " + ConfigurationManager.AppSettings["fileGeodatabase"]);
                 var model =
-                        new MainWindowViewModel<PulverisationEntityViewModel, SuiviPulverisation>(
+                        new MainWindowViewModel<PulverisationListViewModel, SuiviPulverisation>(
                             ConfigurationManager.AppSettings["fileGeodatabase"], _mapService);
                 model.InitializeDataModel();
                 this.DataContext = model;
