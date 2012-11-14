@@ -43,7 +43,7 @@ namespace SopfimMessage
             }
         }
 
-        private void _tabularData_CurrentCellChanged(object sender, EventArgs e)
+        private void _tabularData_CellEditEnding(object sender, System.Windows.Controls.DataGridCellEditEndingEventArgs e)
         {
             _model.DataViewModel.SetSelectedRecordAsDirty();
         }

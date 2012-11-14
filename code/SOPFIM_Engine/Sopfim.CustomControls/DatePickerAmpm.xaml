@@ -10,13 +10,26 @@
         <CustomControls:AmPmConverter x:Key="_amConverter" />
     </UserControl.Resources>
   <Grid>
-        <Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="{x:Type DatePickerTextBox}">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <TextBox x:Name="PART_TextBox"
+                                     Text="{Binding Path=SelectedDate, StringFormat='dd MMM yyyy', 
+                                     RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+            <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
         <DatePicker x:Name="_datePicker" SelectedDateChanged="_datePicker_SelectedDateChanged" 
-                    SelectedDate="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=SelectedDateTime,Mode=OneWay}" Margin="0"/>
-        <xctk:ButtonSpinner Width="50" Grid.Column="1" x:Name="_spinner" Spin="_spinner_Spin" Margin="0">
+                    SelectedDate="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=SelectedDateTime,Mode=OneWay}" Margin="0" Padding="0"/>
+        <xctk:ButtonSpinner Width="50" Grid.Column="1" x:Name="_spinner" Spin="_spinner_Spin" Margin="0" >
             <TextBlock x:Name="_spinText" 
                        Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=SelectedDateTime, Converter={StaticResource _amConverter}, Mode=OneWay}" 
                        Margin="0" Padding="0" TextAlignment="Center" HorizontalAlignment="Center"

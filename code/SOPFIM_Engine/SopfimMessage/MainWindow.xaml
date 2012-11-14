@@ -83,10 +83,10 @@
                                     </StackPanel>
                                 </Button>
                                 <TextBlock Text="Message # en cours" Style="{StaticResource _filterTextBlock}" Margin="25,0,0,0"/>
-                                <TextBox Text="{Binding MessageNumber}" Width="50"  Style="{StaticResource _generalControl}" />
+                                <TextBox Text="{Binding MessageNumber}" Width="50"  Style="{StaticResource _generalControl}" IsEnabled="{Binding IsReadOnly}"/>
                                 <TextBlock Text="Date du message" Style="{StaticResource _filterTextBlock}" Margin="25,0,0,0" />
                                 <CustomControls:DatePickerAmpm  x:Name="_messageDateSelector" SelectedDateTime="{Binding MessageSelectedDate, Mode=OneWay}"
-                                                Width="150" Margin="15,0,0,0" VerticalAlignment="Center" IsEnabled="False"/>
+                                                Width="200" Margin="15,0,0,0" VerticalAlignment="Center" IsEnabled="False"/>
                                 
                         </StackPanel>
                         </Border>
@@ -115,10 +115,10 @@
                 </StackPanel>
 
             </Grid>
-                
 
-            
-            <DataGrid Name="_tabularData" ItemsSource="{Binding DataList}" AutoGenerateColumns="False" Margin="5"
+
+
+            <DataGrid Name="_tabularData" ItemsSource="{Binding DisplayList}" AutoGenerateColumns="False" Margin="5"
                   IsReadOnly="{Binding IsReadOnly}" Grid.Row="1" Grid.ColumnSpan="2" Height="Auto"  
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           AlternationCount="2" AlternatingRowBackground="#EFF8FB" HorizontalAlignment="Left"
@@ -126,10 +126,10 @@
                       RowHeaderStyle="{StaticResource _datagridRowHeader}" 
                       BorderBrush="{Binding IsReadOnly, Converter={StaticResource _gridConverter}}" 
                       BorderThickness="{Binding IsReadOnly, Converter={StaticResource _gridThicknessConverter}}"
-                      SelectedItem="{Binding SelectedRecord, Mode=TwoWay}" CurrentCellChanged="_tabularData_CurrentCellChanged">
+                      SelectedItem="{Binding SelectedMessage, Mode=TwoWay}" CellEditEnding="_tabularData_CellEditEnding">
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Copy" Command="{Binding SplitMessage}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource _inverseConverter}}"/>
+                        <MenuItem Header="Copy" Command="{Binding SplitMessageCommand}" IsEnabled="{Binding IsReadOnly, Converter={StaticResource _inverseConverter}}"/>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
                 <DataGrid.Columns>
@@ -193,7 +193,7 @@
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="LuOuv" Binding="{Binding LvOuv30m}" Width="100" />
-                    <DataGridTextColumn Header="Remarque"  Width="150" />
+                    <DataGridTextColumn Header="Remarque" Binding="{Binding Remarque}" Width="150" />
                     <DataGridTemplateColumn Header="DateTr" Width="151">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

@@ -75,7 +75,7 @@
                 <StackPanel x:Name="_filterPanel" Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="6" VerticalAlignment="Bottom">
                     <TextBlock Text="Date Mois/JJ" Style="{StaticResource _filterTextBlock}" VerticalAlignment="Center" />
                     <CustomControls:DatePickerAmpm  x:Name="_messageDateSelector" SelectedDateTime="{Binding DateRepport, Mode=TwoWay}"  VerticalAlignment="Center"
-                                                Width="150" Margin="15,0,0,0"  />
+                                                Width="200" Margin="15,0,0,0" IsEnabled="{Binding IsReadOnly}" />
                     <TextBlock Text="Pulvérisation" Style="{StaticResource _filterTextBlock}"  VerticalAlignment="Center" Margin="30,0,0,0"/>
                     <CheckBox x:Name="_inputPulver" IsChecked="{Binding Traitement}" Style="{StaticResource _generalControl}"  VerticalAlignment="Center" Height="15" Width="15"/>
                     <TextBlock Text="Si non raison" Style="{StaticResource _filterTextBlock}" VerticalAlignment="Center"/>
@@ -95,29 +95,26 @@
                 <TextBlock Text="Volume pulvérisé cumulatif" Style="{StaticResource _filterTextBlock}" Grid.Column="4" Grid.Row="1"/>
                 <TextBlock Text="Pourcentage programme réalisé" Style="{StaticResource _filterTextBlock}" Grid.Column="5" Grid.Row="1"/>
 
-                <TextBox x:Name="_inputVolume" Grid.Column="3" Grid.Row="2" Text="{Binding VolumeProgram}" Margin="3"/>
+                <TextBox x:Name="_inputVolumeProgramme" Grid.Column="3" Grid.Row="2" Text="{Binding SelectedVolProgramme}" Margin="3"/>
 
-                <TextBox x:Name="_inputCum" Grid.Column="4" Grid.Row="2" Text="{Binding VolumeCumulatif}"  Margin="3"/>
+                <TextBox x:Name="_inputCumul" Grid.Column="4" Grid.Row="2" Text="{Binding SelectedVolCumulatif}"  Margin="3"/>
                 <TextBox x:Name="_ddd" Grid.Column="5" Grid.Row="2"  Margin="3"/>
 
             </Grid>
 
-            <DataGrid Name="_tabularData" ItemsSource="{Binding DataList}" AutoGenerateColumns="False" Margin="5" 
+            <DataGrid Name="_tabularData" ItemsSource="{Binding DisplayList}" AutoGenerateColumns="False" Margin="5" 
                   IsReadOnly="{Binding IsReadOnly}"  Height="Auto"  Grid.Row="1" Grid.ColumnSpan="2" 
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                           AlternationCount="2" AlternatingRowBackground="#EFF8FB" HorizontalAlignment="Left"
                           RowHeight="25" ColumnHeaderStyle="{StaticResource _datagridColumnHeader}"
                       RowHeaderStyle="{StaticResource _datagridRowHeader}" 
                       BorderBrush="{Binding IsReadOnly, Converter={StaticResource _gridConverter}}" 
-                      BorderThickness="{Binding IsReadOnly, Converter={StaticResource _gridThicknessConverter}}" CanUserAddRows="True">
+                      BorderThickness="{Binding IsReadOnly, Converter={StaticResource _gridThicknessConverter}}" CanUserAddRows="True" InitializingNewItem="_tabularData_InitializingNewItem">
                 <DataGrid.Columns>
                    
                     <CustomControls:BindableDatagridComboBoxColumn Header="No Bloc" SelectedValueBinding="{Binding NoBloc}" 
                           ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BlocNumberValues}" 
                           SelectedValuePath="Code" DisplayMemberPath="Description" Width="*"/>
-                    <!--<CustomControls:BindableDatagridComboBoxColumn Header="AppPrevue" SelectedValueBinding="{Binding Application}" 
-                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.ApplicationValues}" 
-                          SelectedValuePath="Code" DisplayMemberPath="Description"  Width="*"/>-->
                     <DataGridTextColumn  Header="AppPrevue" Visibility="Visible"  Width="*"/>
                     <CustomControls:BindableDatagridComboBoxColumn Header="Application" SelectedValueBinding="{Binding Application}" 
                           ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.ApplicationValues}" 

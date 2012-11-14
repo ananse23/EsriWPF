@@ -15,7 +15,8 @@ namespace SopfimPulverisation
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IMapControl _mapService;
+        private readonly IMapControl _mapService;
+        private MainWindowViewModel<PulverisationListViewModel, SuiviPulverisation> _model;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,11 +29,11 @@ namespace SopfimPulverisation
             {
                 Logger.Log("map was successfully loaded ");
                 Logger.Log("Loading data...: " + ConfigurationManager.AppSettings["fileGeodatabase"]);
-                var model =
+                _model =
                         new MainWindowViewModel<PulverisationListViewModel, SuiviPulverisation>(
                             ConfigurationManager.AppSettings["fileGeodatabase"], _mapService);
-                model.InitializeDataModel();
-                this.DataContext = model;
+                _model.InitializeDataModel();
+                this.DataContext = _model;
                 LogManager.GetLogger(typeof(MainWindow)).Info("Finish loaded data: " + ConfigurationManager.AppSettings["fileGeodatabase"]);
             }
             catch (Exception exception)
@@ -40,6 +41,11 @@ namespace SopfimPulverisation
                 LogManager.GetLogger("ErrorLogger").Fatal("error getting data", exception);
                 Xceed.Wpf.Toolkit.MessageBox.Show("Error loading data. Please see the log for details");
             }
+        }
+
+        private void _tabularData_InitializingNewItem(object sender, System.Windows.Controls.InitializingNewItemEventArgs e)
+        {
+            _model.DataViewModel.DataList.Add((SuiviPulverisation)e.NewItem);
         }
     }
 }

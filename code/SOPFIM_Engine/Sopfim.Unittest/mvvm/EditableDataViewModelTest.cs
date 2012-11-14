@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ESRI.ArcGIS.Geodatabase;
 using Moq;
@@ -88,7 +89,7 @@ namespace Sopfim.Unittest.mvvm
         [Test]
         public void QueryData_should_delegate_to_repository()
         {
-            _testEditableListClass.QueryCurrentSelection();
+            _testEditableListClass.QueryCurrentCriteria();
             _repo.Verify(x => x.GeneralQuery<MessageViewModel>(_table.Object, "where"));
             Assert.AreEqual(2, _testEditableListClass.DataList.Count);
         }
@@ -96,7 +97,7 @@ namespace Sopfim.Unittest.mvvm
         [Test]
         public void SaveCommand_should_delegate_to_repository()
         {
-            _testEditableListClass.QueryCurrentSelection();
+            _testEditableListClass.QueryCurrentCriteria();
             _testEditableListClass.DataList[1].IsDirty = true;
             _testEditableListClass.SaveEdit.Execute();
             _repo.Verify(x => x.Save(It.Is<List<MessageViewModel>>(y => y.Count == 1), _table.Object));
@@ -117,9 +118,13 @@ namespace Sopfim.Unittest.mvvm
 
             public override void  InitialQuery()
             {
-                QueryCurrentSelection();
+                QueryCurrentCriteria();
             }
-    
+
+            public override Func<MessageViewModel, bool> FilterCriteria
+            {
+                get { throw new NotImplementedException(); }
+            }
         }
     }
 }

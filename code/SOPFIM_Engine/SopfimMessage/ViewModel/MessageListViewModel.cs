@@ -7,10 +7,11 @@ using ESRI.ArcGIS.Geometry;
 using Microsoft.Practices.Prism.Commands;
 using SOPFIM.Domain;
 using Sopfim.ViewModels;
+using Xceed.Wpf.Toolkit;
 
 namespace SopfimMessage.ViewModel
 {
-    public class MessageListViewModel : EditableListViewModel<MessageViewModel>
+    public sealed class MessageListViewModel : EditableListViewModel<MessageViewModel>
     {
         private int? _messageNumberBeforeNewMessage;
         private bool _isNew;
@@ -23,6 +24,7 @@ namespace SopfimMessage.ViewModel
         }
 
         #region properties
+
         private string _blocType;
         public string BlocType
         {
@@ -31,7 +33,7 @@ namespace SopfimMessage.ViewModel
             {
                 _blocType = value;
                 RaisePropertyChanged("BlocType");
-                QueryCurrentSelection();
+                RefreshFilter();
             }
         }
 
@@ -54,7 +56,7 @@ namespace SopfimMessage.ViewModel
             {
                 _blocNumber = value;
                 RaisePropertyChanged("BlocNumber");
-                QueryCurrentSelection();
+                RefreshFilter();
             }
         }
 
@@ -66,7 +68,7 @@ namespace SopfimMessage.ViewModel
             {
                 _baseOperation = value;
                 RaisePropertyChanged("BaseOperation");
-                QueryCurrentSelection();
+                RefreshFilter();
             }
         }
 
@@ -77,9 +79,9 @@ namespace SopfimMessage.ViewModel
             set
             {
                 _messageNumber = value;
-                _messageSelectedDate = null;
+                BeginEdit.RaiseCanExecuteChanged();
                 RaisePropertyChanged("MessageNumber");
-                QueryCurrentSelection();
+                QueryCurrentCriteria();
             }
         }
 
@@ -109,23 +111,23 @@ namespace SopfimMessage.ViewModel
             {
                 _largeur = value;
                 RaisePropertyChanged("Largeur");
-                QueryCurrentSelection();
+                RefreshFilter();
             }
         }
         #endregion 
 
         #region EditableListViewModel implementation
+        
+        protected override bool CanEdit()
+        {
+            return MessageNumber.HasValue && MessageNumber.Value > 0;
+        }
+
         protected override string GenerteWhereClause()
         {
             var query = string.Empty;
-            if (!string.IsNullOrEmpty(BlocType))
-                query += string.Format("TypeBloc = '{0}' and ", BlocType);
-            if (!string.IsNullOrEmpty(BaseOperation))
-                query += string.Format("NomBase = '{0}' and ", BaseOperation);
             if (MessageNumber.HasValue && MessageNumber.Value > 0)
                 query += string.Format("MessagesID = {0} and ", MessageNumber.Value);
-            if (!string.IsNullOrEmpty(BlocNumber))
-                query += string.Format("NoBloc = '{0}' and ", BlocNumber);
             return string.IsNullOrEmpty(query) ? query : query.Substring(0, query.Length - 5);
         }
 
@@ -141,10 +143,20 @@ namespace SopfimMessage.ViewModel
             MessageNumber = LastMessageNumber;
         }
 
+        public override Func<MessageViewModel, bool> FilterCriteria
+        {
+            get { return (x => 
+                (string.IsNullOrEmpty(BlocType) || x.TypeBloc == BlocType) &&
+                (string.IsNullOrEmpty(BlocNumber) || x.NoBloc == BlocNumber) &&
+                (string.IsNullOrEmpty(BaseOperation) || x.NomBase == BaseOperation) 
+                ); 
+            }
+        }
+
         protected override void CancelData()
         {
             if (_isNew)
-                _messageNumber = _lastMessageNumber;
+                _messageNumber = _messageNumberBeforeNewMessage;
             RaisePropertyChanged("MessageNumber");
             base.CancelData();
         }
@@ -159,9 +171,9 @@ namespace SopfimMessage.ViewModel
             }
         }
 
-        public override void QueryCurrentSelection()
+        public override void QueryCurrentCriteria()
         {
-            base.QueryCurrentSelection();
+            base.QueryCurrentCriteria();
             if(DataList.Count == 0)
                 return;
             if (DataList.Select(x => x.MessagesID).Distinct().Count() > 1)
@@ -210,12 +222,12 @@ namespace SopfimMessage.ViewModel
             _isNew = true;
             var list = QueryListData(string.Format("MessagesID = {0}", LastMessageNumber));
             var newList = new ObservableCollection<MessageViewModel>();
-            //LastMessageNumber++;
             var newMessageNumber = LastMessageNumber + 1;
             list.ForEach(x =>
             {
                 x.MessagesID = newMessageNumber;
                 x.DateMessages = DateTime.Now;
+                x.IsDirty = true;
                 newList.Add(x);
             });
             DataList = new ObservableCollection<MessageViewModel>(list);
@@ -224,6 +236,16 @@ namespace SopfimMessage.ViewModel
             _messageSelectedDate = DateTime.Now;
             RaisePropertyChanged("MessageNumber");
             RaisePropertyChanged("MessageSelectedDate");
+            RefreshFilter();
+        }
+
+        private DelegateCommand _splitMessage;
+        public DelegateCommand SplitMessageCommand
+        {
+            get
+            {
+                return _splitMessage ?? (_splitMessage = new DelegateCommand(SplitMessage));
+            }
         }
 
         private DelegateCommand<string> _locate;
@@ -233,6 +255,15 @@ namespace SopfimMessage.ViewModel
             {
                 return _locate ?? (_locate = new DelegateCommand<string>(LocateBloc));
             }
+        }
+
+        private void SplitMessage()
+        {
+            var newRecord = (MessageViewModel) this.SelectedMessage.Clone() ;
+            newRecord.LvTr = null;
+            newRecord.DateTr = null;
+            this.DataList.Insert(this.DataList.IndexOf(this.SelectedMessage) + 1, newRecord);
+            RefreshFilter();
         }
 
         private void LocateBloc(string bloc)

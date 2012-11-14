@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using ESRI.ArcGIS.Geodatabase;
@@ -10,7 +11,6 @@ using Microsoft.Practices.Prism.ViewModel;
 using SOPFIM.DataLayer;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
-using Xceed.Wpf.Toolkit;
 
 
 namespace Sopfim.ViewModels
@@ -24,6 +24,10 @@ namespace Sopfim.ViewModels
         }
 
         #region properties
+        public IMapControl MapService { get; set; }
+        protected ITable DataListTable;
+        public ObservableCollection<T> DataList { get; set; }
+        
 
         private IDataService _dataService;
         public IDataService DataService
@@ -34,11 +38,7 @@ namespace Sopfim.ViewModels
                 DataListTable = _dataService.GetTable(this.TableName);
             }
         }
-        public IMapControl MapService { get; set; }
-        protected ITable DataListTable;
         
-        
-
         private bool _isReadOnly;
         public bool IsReadOnly
         {
@@ -51,14 +51,12 @@ namespace Sopfim.ViewModels
             }
         }
 
-        private ObservableCollection<T> _dataList;
-        public ObservableCollection<T> DataList
+        private ObservableCollection<T> _displayList;
+        public ObservableCollection<T> DisplayList
         {
-            get { return _dataList; }
-            set
-            {
-                _dataList = value;
-                RaisePropertyChanged("DataList");
+            get { return _displayList; }
+            set { _displayList = value;
+                RaisePropertyChanged("DisplayList");
             }
         }
 
@@ -83,16 +81,19 @@ namespace Sopfim.ViewModels
 
         #region commands
         protected List<DelegateCommand> EditEffectedCommands;
-
-
         private DelegateCommand _beginEdit;
         public DelegateCommand BeginEdit
         {
             get
             {
                 return _beginEdit ?? (_beginEdit = new DelegateCommand(() => this.IsReadOnly = false
-                    , () => IsReadOnly));
+                    , () => IsReadOnly && CanEdit()));
             }
+        }
+
+        protected virtual bool CanEdit()
+        {
+            return true;
         }
 
         private DelegateCommand _saveEdit;
@@ -117,40 +118,41 @@ namespace Sopfim.ViewModels
         #region data methods
         protected virtual void SaveData()
         {
-            SaveDataList();
+            var dirtyList = this.DataList.Where(x => x.IsDirty).ToList();
+            DataService.Save(dirtyList, DataListTable);
+            dirtyList.ForEach(x => x.IsDirty = false);
             this.IsReadOnly = true;
         }
 
         protected virtual void CancelData()
         {
-            QueryCurrentSelection();
+            QueryCurrentCriteria();
             this.IsReadOnly = true;
-        }
-
-        protected virtual void SaveDataList()
-        {
-            var dirtyList = this.DataList.Where(x => x.IsDirty).ToList();
-            DataService.Save(dirtyList, DataListTable);
-            dirtyList.ForEach(x => x.IsDirty = false);
         }
 
         protected abstract string GenerteWhereClause();
         protected abstract string TableName { get; }
         public abstract void InitialQuery();
+        public abstract Func<T, bool> FilterCriteria { get; }
 
-        public virtual void QueryCurrentSelection()
+        public virtual void QueryCurrentCriteria()
         {
             this.DataList = new ObservableCollection<T>(this.QueryListData(GenerteWhereClause()));
+            RefreshFilter();
         }
 
-        public virtual List<T> QueryListData(string whereClause)
+        public virtual void RefreshFilter()
+        {
+            DisplayList = new ObservableCollection<T>(DataList.Where(FilterCriteria));
+        }
+
+        protected virtual List<T> QueryListData(string whereClause)
         {
             try
             {
                 var query = whereClause;
-                Logger.Log("retreiving data with where caluse: " + query);
                 var list = new ObservableCollection<T>(DataService.GeneralQuery<T>(this.DataListTable, query));
-                Logger.Log("retreived " + list.Count.ToString(CultureInfo.InvariantCulture) + " records");
+                Logger.Log("retreived data with the where clause: " + query + ", and the result: " + list.Count.ToString(CultureInfo.InvariantCulture) + " records");
                 var newList = list.ToList();
                 newList.ForEach(x => x.IsDirty = false);
                 return newList;
@@ -160,8 +162,8 @@ namespace Sopfim.ViewModels
                 Logger.Error("Error reading the data", exception);
                 throw;
             }
-
         }
+
         #endregion
 
        

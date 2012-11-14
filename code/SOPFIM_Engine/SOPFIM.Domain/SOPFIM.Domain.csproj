@@ -59,6 +59,7 @@
     <Compile Include="SuiviDev.cs" />
     <Compile Include="SuiviMessage.cs" />
     <Compile Include="SuiviPulverisation.cs" />
+    <Compile Include="SopfimVolume.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Esri.CommonUtils\Esri.CommonUtils.csproj">

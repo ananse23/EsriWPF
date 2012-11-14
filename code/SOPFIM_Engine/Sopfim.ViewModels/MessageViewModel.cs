@@ -5,7 +5,7 @@ using SOPFIM.Domain;
 
 namespace Sopfim.ViewModels
 {
-    public class MessageViewModel : SuiviMessage
+    public class MessageViewModel : SuiviMessage, ICloneable
     {
 
         [MappedField("DateOuverture")]
@@ -47,15 +47,36 @@ namespace Sopfim.ViewModels
             get { return !DateOuverture.HasValue; }
         }
 
-        private DelegateCommand _locate;
-        public DelegateCommand Locate
+        public object Clone()
         {
-            get { return _locate ?? (_locate = new DelegateCommand(LocateRecord, () => true)); }
-        }
-
-        private void LocateRecord()
-        {
-            
+            var message = new MessageViewModel
+            {
+                AppPrevue = this.AppPrevue,
+                Application = this.Application,
+                DateMessages = this.DateMessages,
+                DateOuverture = this.DateOuverture,
+                DatePrevision = this.DatePrevision,
+                MessagesID = this.MessagesID,
+                NomBase = this.NomBase,
+                NoBloc = this.NoBloc,
+                TypeBloc = this.TypeBloc,
+                TimingIDI = this.TimingIDI,
+                Produit = this.Produit,
+                LarvesBr = this.LarvesBr,
+                Prescription = this.Prescription,
+                InterApp = this.InterApp,
+                PrioriteEtat = this.PrioriteEtat,
+                Ouvert_1jr = this.Ouvert_1jr,
+                NbreLv30m = this.NbreLv30m,
+                LvOuv30m = this.LvOuv30m,
+                LvOuv80m = this.LvOuv80m,
+                LvOuv100m = this.LvOuv100m,
+                DateTr = this.DateTr,
+                LvTr = this.LvTr,
+                EtatBloc = this.EtatBloc,
+                Remarque = this.Remarque
+            };
+            return message;
         }
     }
 }
