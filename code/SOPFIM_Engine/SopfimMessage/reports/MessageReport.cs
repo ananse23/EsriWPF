@@ -15,9 +15,9 @@ namespace SopfimMessage.reports
         public override void OnClick()
         {
             base.OnClick();
-            ReportFile.SetCurrentWorksheet(0);
-            ReportFile.SetCellValue("B2", "ddd");
-            ReportFile.Save();
+//            ReportFile.SetCurrentWorksheet(0);
+//            ReportFile.SetCellValue("B2", "ddd");
+//            ReportFile.Save();
         }
     }
 }
