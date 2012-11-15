@@ -7,5 +7,6 @@ namespace Sopfim.CustomControls
     {
         event EventHandler MapLoaded;
         void ZoomToExtent(IEnvelope extent);
+        void AddReportMenuItems(GenerateExcelReportCommand[] reportCommand);
     }
 }

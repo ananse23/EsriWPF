@@ -81,7 +81,8 @@
                     <TextBlock Text="Si non raison" Style="{StaticResource _filterTextBlock}" VerticalAlignment="Center"/>
                     <ComboBox x:Name="_inputRaison"  Margin="10,0,0,0"
                           ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.RaisonValues}"
-                          SelectedValuePath="Code" DisplayMemberPath="Description" SelectedValue="{Binding Raison}" Width="150"  VerticalAlignment="Center"/>
+                          SelectedValuePath="Code" DisplayMemberPath="Description" SelectedValue="{Binding Raison}" Width="150"  
+                              VerticalAlignment="Center" IsEnabled="{Binding IsReasonEnabled}"/>
                 </StackPanel>
 
                 <TextBlock Text="Base d'opération"  Style="{StaticResource _filterTextBlock}" Grid.Column="0" Grid.Row="2"/>

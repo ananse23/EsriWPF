@@ -97,6 +97,7 @@ namespace SopfimPulverisation.ViewModels
             {
                 _traitement = value;
                 RaisePropertyChanged("Traitement");
+                RaisePropertyChanged("IsReasonEnabled");
                 RefreshFilter();
             }
         }
@@ -113,6 +114,10 @@ namespace SopfimPulverisation.ViewModels
             }
         }
 
+        public bool IsReasonEnabled
+        {
+            get { return Traitement.HasValue && (!Traitement.Value); }
+        }
 
         protected override void SaveData()
         {
@@ -128,7 +133,7 @@ namespace SopfimPulverisation.ViewModels
             SaveMessage(DataList.ToList());
         }
 
-        private void SaveMessage(List<SuiviPulverisation> sprays)
+        private void SaveMessage(IEnumerable<SuiviPulverisation> sprays)
         {
             _messageTable = _messageTable ?? DataService.GetTable(ConfigurationManager.AppSettings["MessageTableName"]);
             var blockArray = sprays.Select(x => string.Format("'{0}'", x.NoBloc)).ToArray();

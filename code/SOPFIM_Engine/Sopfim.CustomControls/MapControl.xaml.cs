@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Controls;
@@ -24,6 +25,7 @@ namespace Sopfim.CustomControls
         private IToolbarMenu2 _contextMenu;
         private readonly string _mxdFile;
         public event EventHandler MapLoaded;
+        private ToolbarMenu _reportMenu;
 
           // Invoke the Changed event; called whenever list changes
         protected virtual void OnMapLoaded(EventArgs e) 
@@ -75,12 +77,12 @@ namespace Sopfim.CustomControls
             return axMapControl;
         }
 
-        private AxTOCControl CreateToc(AxMapControl _map)
+        private AxTOCControl CreateToc(AxMapControl map)
         {
             var axTocControl = new AxTOCControl();
             _tocHost.Child = axTocControl;
             axTocControl.Update();
-            axTocControl.SetBuddyControl(_map);
+            axTocControl.SetBuddyControl(map);
             return axTocControl;
         }
 
@@ -97,7 +99,6 @@ namespace Sopfim.CustomControls
                  _tocControl.SelectItem(layer, null);
             _mapControl.CustomProperty = layer;
 
-            //if (item == esriTOCControlItem.esriTOCControlItemMap) m_menuMap.PopupMenu(e.x, e.y, m_tocControl.hWnd);
             if (item == esriTOCControlItem.esriTOCControlItemLayer) _contextMenu.PopupMenu(e.x, e.y, _tocControl.hWnd);
         }
 
@@ -113,8 +114,15 @@ namespace Sopfim.CustomControls
             axToolbarControl.AddItem("esriControls.ControlsMapIdentifyTool");
             axToolbarControl.AddItem("esriControls.ControlsMapMeasureTool");
             axToolbarControl.AddItem("esriControls.ControlsMapZoomToolControl");
+            var menuIndex = axToolbarControl.AddItem("esriControls.ControlsMapBookmarkMenu");
+            var menuItem = (IToolbarItem) axToolbarControl.GetItem(menuIndex);
+            menuItem.Menu.Caption = "Signets";
+            _reportMenu = new ToolbarMenu {Caption = "Rapports"};
+            axToolbarControl.AddItem(_reportMenu);
             return axToolbarControl;
         }
+
+
 
         private IToolbarMenu2 CreateContextMenu(AxMapControl map)
         {
@@ -139,6 +147,11 @@ namespace Sopfim.CustomControls
                 _mapControl.ActiveView.Extent = extent;
                 _mapControl.ActiveView.Refresh();
             }
+        }
+
+        public void AddReportMenuItems(GenerateExcelReportCommand[] reportCommand)
+        {
+            reportCommand.ToList().ForEach(x => _reportMenu.AddItem(x));
         }
     }
 }

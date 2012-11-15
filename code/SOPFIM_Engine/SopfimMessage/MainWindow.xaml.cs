@@ -6,6 +6,7 @@ using SOPFIM.Domain;
 using Sopfim.CustomControls;
 using Sopfim.ViewModels;
 using SopfimMessage.ViewModel;
+using SopfimMessage.reports;
 
 namespace SopfimMessage
 {
@@ -27,15 +28,17 @@ namespace SopfimMessage
         {
             try
             {
+                GenerateExcelReportCommand[] reps = {new MessageReport()};
+                _mapService.AddReportMenuItems(reps);
                 var fileGeodatabase = ConfigurationManager.AppSettings["fileGeodatabase"];
                 _model =
-                        new MainWindowViewModel<MessageListViewModel, MessageViewModel>(
-                            fileGeodatabase, _mapService);
+                    new MainWindowViewModel<MessageListViewModel, MessageViewModel>(
+                        fileGeodatabase, _mapService);
                 _model.InitializeDataModel();
                 this.DataContext = _model;
                 Logger.Log("Finish loading data: " + fileGeodatabase);
             }
-            
+
             catch (Exception exception)
             {
                 Logger.Error("error getting data", exception);
