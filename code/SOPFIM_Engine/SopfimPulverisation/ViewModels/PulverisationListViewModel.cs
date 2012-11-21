@@ -10,7 +10,7 @@ using Sopfim.ViewModels;
 
 namespace SopfimPulverisation.ViewModels
 {
-    public sealed class PulverisationListViewModel : EditableListViewModel<SuiviPulverisation>
+    public sealed class PulverisationListViewModel : EditableListViewModel<PulverisationViewModel>
     {
         private ITable _messageTable;
         public Dictionary<string, SopfimVolume> Volumes;
@@ -47,7 +47,7 @@ namespace SopfimPulverisation.ViewModels
             RaisePropertyChanged("SelectedVolCumulatif");
         }
 
-        public override Func<SuiviPulverisation, bool> FilterCriteria
+        public override Func<PulverisationViewModel, bool> FilterCriteria
         {
             get { return (x => 
                 (string.IsNullOrEmpty(BaseOperation) || x.NomBase == BaseOperation) &&

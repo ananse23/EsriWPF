@@ -50,7 +50,6 @@
     <Reference Include="ESRI.ArcGIS.SystemUI, Version=10.0.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=x86">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="ExcelWrapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
@@ -85,7 +84,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="reports\MessageReport.cs" />
     <Compile Include="ViewModel\MessageListViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +147,10 @@
     <ProjectReference Include="..\SOPFIM.Domain\SOPFIM.Domain.csproj">
       <Project>{D0471E03-30E4-4AFB-9C59-E85FADFBD327}</Project>
       <Name>SOPFIM.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sopfim.Reports\Sopfim.Reports.csproj">
+      <Project>{E027B6E1-164D-4F33-B670-BE3B2857655E}</Project>
+      <Name>Sopfim.Reports</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sopfim.ViewModels\Sopfim.ViewModels.csproj">
       <Project>{77B3C7F7-AB83-4747-8620-F4D784C6606C}</Project>

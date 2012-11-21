@@ -17,13 +17,16 @@ namespace Sopfim.ViewModels
         public MainWindowViewModel(IDataService service, IMapControl mapService)
         {
             _service = service;
+            DataSourceHelper.DataService = service;
             _mapService = mapService;
+            DataSourceHelper.MapControl = mapService;
             GetGeodatabaseDomains();
+            DataSourceHelper.Blocks = Blocks;
         }
 
         public virtual void InitializeDataModel()
         {
-            DataViewModel = new TModel {DataService = _service, MapService = _mapService};
+            DataViewModel = new TModel {DataService = _service, MapService = _mapService, Blocks = this.Blocks};
             DataViewModel.InitialQuery();
         }
 
@@ -51,9 +54,11 @@ namespace Sopfim.ViewModels
         public List<DomainRecord> BlocTypeValues { get; set; }
         public List<DomainRecord> BaseOperationValues { get; set; }
         public List<DomainRecord> BlocNumberValues { get; set; }
+        public List<DomainRecord> BlocNumberValuesNonEmpty { get; set; }
         public List<DomainRecord> LargeurValues { get; set; }
         public List<DomainRecord> RaisonValues { get; set; }
         public List<DomainRecord> BlockStateValues { get; set; }
+        public List<BlocTBE> Blocks { get; set; }
 
         private void GetGeodatabaseDomains()
         {
@@ -75,9 +80,10 @@ namespace Sopfim.ViewModels
         private void GetBlocNumberValues()
         {
             var table = _service.GetTable(ConfigurationManager.AppSettings["BlocTableName"]);
-            var blocs = _service.GeneralQuery<BlocTBE>(table, string.Empty);
-            BlocNumberValues = blocs.Select(x => new DomainRecord {Code = x.NoBloc, Description = x.NoBloc}).Distinct().OrderBy(x => x.Code).ToList();
-            BlocNumberValues.Insert(0, new DomainRecord() { Code = null, Description = string.Empty } );
+            Blocks = _service.GeneralQuery<BlocTBE>(table, string.Empty);
+            BlocNumberValuesNonEmpty = Blocks.Select(x => new DomainRecord { Code = x.NoBloc, Description = x.NoBloc }).Distinct().OrderBy(x => x.Code).ToList();
+            BlocNumberValues = new List<DomainRecord> {new DomainRecord() { Code = null, Description = string.Empty }};
+            BlocNumberValues.AddRange(BlocNumberValuesNonEmpty);
         }
     }
 }

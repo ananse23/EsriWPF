@@ -1,5 +1,7 @@
 using System;
 using ESRI.ArcGIS.Geometry;
+using SOPFIM.Domain;
+using Sopfim.Reports;
 
 namespace Sopfim.CustomControls
 {
@@ -7,6 +9,7 @@ namespace Sopfim.CustomControls
     {
         event EventHandler MapLoaded;
         void ZoomToExtent(IEnvelope extent);
-        void AddReportMenuItems(GenerateExcelReportCommand[] reportCommand);
+        void AddReportMenuItems<T>(IBaseExcelExportCommand<T>[] reportCommand) where T : EditableEntity, new();
+        void RefreshMap();
     }
 }

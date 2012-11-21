@@ -16,7 +16,7 @@ namespace SOPFIM.Domain
         public string NomBase { get; set; }
 
         [MappedField("NoBloc", 8)]
-        public string NoBloc { get; set; }
+        public virtual string NoBloc { get; set; }
 
         [MappedField("Produit", 20)]
         public string Produit { get; set; }

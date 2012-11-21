@@ -2,8 +2,13 @@
 
 namespace SOPFIM.Domain
 {
-    public abstract class EditableEntity : MappableFeatureViewModel
+    public class EditableEntity : MappableFeatureViewModel
     {
+        public EditableEntity() : base()
+        {
+            
+        }
+
         private bool _isDirty;
         public bool IsDirty
         {

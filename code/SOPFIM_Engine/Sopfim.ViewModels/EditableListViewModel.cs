@@ -24,12 +24,15 @@ namespace Sopfim.ViewModels
         }
 
         #region properties
+
         public IMapControl MapService { get; set; }
         protected ITable DataListTable;
         public ObservableCollection<T> DataList { get; set; }
+        public List<BlocTBE> Blocks { get; set; }
         
 
-        private IDataService _dataService;
+
+    private IDataService _dataService;
         public IDataService DataService
         {
             get { return _dataService; }
@@ -122,6 +125,7 @@ namespace Sopfim.ViewModels
             DataService.Save(dirtyList, DataListTable);
             dirtyList.ForEach(x => x.IsDirty = false);
             this.IsReadOnly = true;
+            MapService.RefreshMap();
         }
 
         protected virtual void CancelData()

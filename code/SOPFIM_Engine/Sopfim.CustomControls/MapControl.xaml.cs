@@ -11,6 +11,8 @@ using ESRI.ArcGIS.Controls;
 using ESRI.ArcGIS.Geometry;
 using ESRI.ArcGIS.SystemUI;
 using Esri.CommonUtils;
+using SOPFIM.Domain;
+using Sopfim.Reports;
 
 namespace Sopfim.CustomControls
 {
@@ -149,9 +151,14 @@ namespace Sopfim.CustomControls
             }
         }
 
-        public void AddReportMenuItems(GenerateExcelReportCommand[] reportCommand)
+        public void AddReportMenuItems<T>(IBaseExcelExportCommand<T>[] reportCommand) where T : EditableEntity, new()
         {
             reportCommand.ToList().ForEach(x => _reportMenu.AddItem(x));
+        }
+
+        public void RefreshMap()
+        {
+            _mapControl.Refresh();
         }
     }
 }

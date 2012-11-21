@@ -3,10 +3,11 @@ queadmin
 gaspe
 cd outgoing
 cd SOPFIM
-mkdir setup_2012_11_15
-cd setup_2012_11_15
+mkdir setup_2012_11_20
+cd setup_2012_11_20
 binary
 put SopfimMessageSetup/Debug/Sopfim_Suivi_Message_Setup.msi
 put SopfimMessageSetup/Debug/setup.exe
+put SopfimPulverisationSetup/Debug/SopfimPulverisationSetup.msi
 disconnect
 bye

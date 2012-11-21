@@ -7,7 +7,6 @@ using ESRI.ArcGIS.Geometry;
 using Microsoft.Practices.Prism.Commands;
 using SOPFIM.Domain;
 using Sopfim.ViewModels;
-using Xceed.Wpf.Toolkit;
 
 namespace SopfimMessage.ViewModel
 {
@@ -247,15 +246,7 @@ namespace SopfimMessage.ViewModel
                 return _splitMessage ?? (_splitMessage = new DelegateCommand(SplitMessage));
             }
         }
-
-        private DelegateCommand<string> _locate;
-        public DelegateCommand<string> Locate
-        {
-            get
-            {
-                return _locate ?? (_locate = new DelegateCommand<string>(LocateBloc));
-            }
-        }
+        
 
         private void SplitMessage()
         {
@@ -264,19 +255,6 @@ namespace SopfimMessage.ViewModel
             newRecord.DateTr = null;
             this.DataList.Insert(this.DataList.IndexOf(this.SelectedMessage) + 1, newRecord);
             RefreshFilter();
-        }
-
-        private void LocateBloc(string bloc)
-        {
-            _blockTable = _blockTable ?? DataService.GetTable(ConfigurationManager.AppSettings["BlocTableName"]);
-            var result = DataService.GeneralQuery<BlocTBE>(_blockTable, string.Format("NoBloc = '{0}'", bloc));
-            var envelopeTotal = new Envelope() as IEnvelope;
-            result.ForEach(x =>
-            {
-                IEnvelope envelope = x.Shape.Envelope;
-                envelopeTotal.Union(envelope);
-            });
-            MapService.ZoomToExtent(envelopeTotal);
         }
         #endregion 
     }

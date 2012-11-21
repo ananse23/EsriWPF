@@ -50,11 +50,18 @@ namespace SOPFIM.DataLayer
 
         public List<T> GeneralQuery<T>(ITable table, string whereClause, string orderClause) where T : EditableEntity, new()
         {
-            IQueryFilter filter = new QueryFilter()  { WhereClause = whereClause };
-            var orderFilter = (IQueryFilterDefinition) filter;
-            orderFilter.PostfixClause = "ORDER BY " + orderClause;
-            var result = new List<T>(table.Map<T>(filter));
-            return result;
+            if (string.IsNullOrEmpty(orderClause))
+            {
+                return GeneralQuery<T>(table, whereClause);
+            }
+            else
+            {
+                IQueryFilter filter = new QueryFilter() {WhereClause = whereClause};
+                var orderFilter = (IQueryFilterDefinition) filter;
+                orderFilter.PostfixClause = "ORDER BY " + orderClause;
+                var result = new List<T>(table.Map<T>(filter));
+                return result;
+            }
         }
 
         public void Save<T>(List<T> listToSave, ITable table) where T: EditableEntity, new()

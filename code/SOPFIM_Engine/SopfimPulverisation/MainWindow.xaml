@@ -73,7 +73,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <StackPanel x:Name="_filterPanel" Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="6" VerticalAlignment="Bottom">
-                    <TextBlock Text="Date Mois/JJ" Style="{StaticResource _filterTextBlock}" VerticalAlignment="Center" />
+                    <TextBlock Text="Date: JJ/Mois/An" Style="{StaticResource _filterTextBlock}" VerticalAlignment="Center" />
                     <CustomControls:DatePickerAmpm  x:Name="_messageDateSelector" SelectedDateTime="{Binding DateRepport, Mode=TwoWay}"  VerticalAlignment="Center"
                                                 Width="200" Margin="15,0,0,0" IsEnabled="{Binding IsReadOnly}" />
                     <TextBlock Text="Pulvérisation" Style="{StaticResource _filterTextBlock}"  VerticalAlignment="Center" Margin="30,0,0,0"/>
@@ -112,9 +112,17 @@
                       BorderBrush="{Binding IsReadOnly, Converter={StaticResource _gridConverter}}" 
                       BorderThickness="{Binding IsReadOnly, Converter={StaticResource _gridThicknessConverter}}" CanUserAddRows="True" InitializingNewItem="_tabularData_InitializingNewItem">
                 <DataGrid.Columns>
-                   
-                    <CustomControls:BindableDatagridComboBoxColumn Header="No Bloc" SelectedValueBinding="{Binding NoBloc}" 
-                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BlocNumberValues}" 
+                    <DataGridTemplateColumn Header="L">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding Locate}" Width="25" Height="24" Margin="0">
+                                    <Image Source="/SopfimPulverisation;component/Images/Large/filefind.png" Width="25" Height="24" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <CustomControls:BindableDatagridComboBoxColumn Header="No Bloc" SelectedValueBinding="{Binding NoBloc, UpdateSourceTrigger=LostFocus}" 
+                          ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BlocNumberValuesNonEmpty}" 
                           SelectedValuePath="Code" DisplayMemberPath="Description" Width="*"/>
                     <DataGridTextColumn  Header="AppPrevue" Visibility="Visible"  Width="*"/>
                     <CustomControls:BindableDatagridComboBoxColumn Header="Application" SelectedValueBinding="{Binding Application}" 
@@ -130,7 +138,7 @@
                           ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.LargeurValues}" 
                           SelectedValuePath="Code" DisplayMemberPath="Description"  Width="*"/>
 
-                    <DataGridTextColumn  Header="Ligned traitée" Binding="{Binding LvTr}" Visibility="Visible"  Width="*"/>
+                    <DataGridTextColumn  Header="Ligne traitée" Binding="{Binding LvTr}" Visibility="Visible"  Width="*"/>
                     <DataGridTextColumn Header="Remarque"  Width="*" Binding="{Binding Remarque}" />
                 </DataGrid.Columns>
             </DataGrid>

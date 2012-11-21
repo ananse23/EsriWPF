@@ -4,9 +4,10 @@ using System.Windows;
 using Esri.CommonUtils;
 using SOPFIM.Domain;
 using Sopfim.CustomControls;
+using Sopfim.Reports;
 using Sopfim.ViewModels;
 using SopfimMessage.ViewModel;
-using SopfimMessage.reports;
+
 
 namespace SopfimMessage
 {
@@ -28,8 +29,8 @@ namespace SopfimMessage
         {
             try
             {
-                GenerateExcelReportCommand[] reps = {new MessageReport()};
-                _mapService.AddReportMenuItems(reps);
+                IBaseExcelExportCommand<EditableEntity>[] reports = { new SuiviMessageExporter(), new PulverisationExporter() };
+                _mapService.AddReportMenuItems<EditableEntity>(reports);
                 var fileGeodatabase = ConfigurationManager.AppSettings["fileGeodatabase"];
                 _model =
                     new MainWindowViewModel<MessageListViewModel, MessageViewModel>(
