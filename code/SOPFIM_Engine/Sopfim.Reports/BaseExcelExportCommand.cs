@@ -7,7 +7,7 @@ using Microsoft.Win32;
 using OfficeOpenXml;
 using SOPFIM.DataLayer;
 using SOPFIM.Domain;
-using Application = Microsoft.Office.Interop.Excel.Application;
+//using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace Sopfim.Reports
 {
@@ -68,9 +68,9 @@ namespace Sopfim.Reports
                                          });
                 ExcelPackage.Save();
             }
-            var application = new Application();
-            var workbook = application.Workbooks.Open(outputFile);
-            application.Visible = true;
+//            var application = new Application();
+//            var workbook = application.Workbooks.Open(outputFile);
+//            application.Visible = true;
         }
 
         protected abstract void ExportToExcel(T rowToExport, int counter);
