@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using ESRI.ArcGIS.Geodatabase;
@@ -17,31 +16,31 @@ namespace Sopfim.ViewModels
 {
     public abstract class EditableListViewModel<T> : NotificationObject where T : EditableEntity, new()
     {
-        protected EditableListViewModel()
+        #region constructors
+        protected IDataService DataService;
+        protected IMapControl MapService;
+
+        protected EditableListViewModel(IDataService service, IMapControl mapService)
         {
             EditEffectedCommands = new List<DelegateCommand>() {BeginEdit, CancelEdit, SaveEdit};
             IsReadOnly = true;
+            DataService = service;
+            MapService = mapService;
+            DataListTable = DataService.GetTable(TableName);
         }
+
+        protected EditableListViewModel() : this(ApplicationSources.DataService, ApplicationSources.MapControl)
+        {
+            
+        }
+        #endregion 
 
         #region properties
 
-        public IMapControl MapService { get; set; }
-        protected ITable DataListTable;
         public ObservableCollection<T> DataList { get; set; }
-        public List<BlocTBE> Blocks { get; set; }
-        
+        protected ITable DataListTable;
+        //public List<BlocTBE> Blocks { get; set; }
 
-
-    private IDataService _dataService;
-        public IDataService DataService
-        {
-            get { return _dataService; }
-            set { 
-                _dataService = value;
-                DataListTable = _dataService.GetTable(this.TableName);
-            }
-        }
-        
         private bool _isReadOnly;
         public bool IsReadOnly
         {
@@ -74,13 +73,8 @@ namespace Sopfim.ViewModels
             }
         }
 
-        public void SetSelectedRecordAsDirty()
-        {
-            if (SelectedRecord != null)
-                SelectedRecord.IsDirty = true;
-        }
+        #endregion
 
-        #endregion 
 
         #region commands
         protected List<DelegateCommand> EditEffectedCommands;
@@ -119,6 +113,13 @@ namespace Sopfim.ViewModels
         #endregion 
 
         #region data methods
+
+        public void SetSelectedRecordAsDirty()
+        {
+            if (SelectedRecord != null)
+                SelectedRecord.IsDirty = true;
+        }
+
         protected virtual void SaveData()
         {
             var dirtyList = this.DataList.Where(x => x.IsDirty).ToList();
@@ -141,7 +142,7 @@ namespace Sopfim.ViewModels
 
         public virtual void QueryCurrentCriteria()
         {
-            this.DataList = new ObservableCollection<T>(this.QueryListData(GenerteWhereClause()));
+            this.DataList = new ObservableCollection<T>(QueryListData(GenerteWhereClause()));
             RefreshFilter();
         }
 
@@ -155,11 +156,10 @@ namespace Sopfim.ViewModels
             try
             {
                 var query = whereClause;
-                var list = new ObservableCollection<T>(DataService.GeneralQuery<T>(this.DataListTable, query));
+                var list = DataService.GeneralQuery<T>(this.DataListTable, query);
                 Logger.Log("retreived data with the where clause: " + query + ", and the result: " + list.Count.ToString(CultureInfo.InvariantCulture) + " records");
-                var newList = list.ToList();
-                newList.ForEach(x => x.IsDirty = false);
-                return newList;
+                list.ForEach(x => x.IsDirty = false);
+                return list;
             }
             catch (Exception exception)
             {

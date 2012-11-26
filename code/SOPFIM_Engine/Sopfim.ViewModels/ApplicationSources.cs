@@ -9,7 +9,7 @@ namespace Sopfim.ViewModels
     // entities without rewriting the code
     // I don't have time to do this refactoring now
     // Ghassan Karwchan.
-    public static class DataSourceHelper
+    public static class ApplicationSources
     {
         public static List<BlocTBE> Blocks { get; set; }
         public static IDataService DataService { get; set; }

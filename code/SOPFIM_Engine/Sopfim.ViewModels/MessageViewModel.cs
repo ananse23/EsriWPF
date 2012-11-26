@@ -4,6 +4,8 @@ using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
 using Microsoft.Practices.Prism.Commands;
 using ORMapping;
+using Sopfim.CustomControls;
+using SOPFIM.DataLayer;
 using SOPFIM.Domain;
 
 namespace Sopfim.ViewModels
@@ -11,6 +13,18 @@ namespace Sopfim.ViewModels
     public class MessageViewModel : SuiviMessage, ICloneable
     {
         private ITable _blockTable;
+        private IDataService _dataService;
+        private IMapControl _mapControl;
+        public MessageViewModel(IDataService service, IMapControl mapControl)
+        {
+            _dataService = service;
+            _mapControl = mapControl;
+        }
+
+        public MessageViewModel() : this(ApplicationSources.DataService, ApplicationSources.MapControl)
+        {
+            
+        }
 
         [MappedField("DateOuverture")]
         public override DateTime? DateOuverture
@@ -63,15 +77,15 @@ namespace Sopfim.ViewModels
 
         private void LocateBlock()
         {
-            _blockTable = _blockTable ?? DataSourceHelper.DataService.GetTable(ConfigurationManager.AppSettings["BlocTableName"]);
-            var result = DataSourceHelper.DataService.GeneralQuery<BlocTBE>(_blockTable, string.Format("NoBloc = '{0}'", NoBloc));
+            _blockTable = _blockTable ?? _dataService.GetTable(ConfigurationManager.AppSettings["BlocTableName"]);
+            var result = _dataService.GeneralQuery<BlocTBE>(_blockTable, string.Format("NoBloc = '{0}'", NoBloc));
             var envelopeTotal = new Envelope() as IEnvelope;
             result.ForEach(x =>
             {
                 IEnvelope envelope = x.Shape.Envelope;
                 envelopeTotal.Union(envelope);
             });
-            DataSourceHelper.MapControl.ZoomToExtent(envelopeTotal);
+            _mapControl.ZoomToExtent(envelopeTotal);
         }
 
         public object Clone()

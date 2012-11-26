@@ -2,10 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
-using ESRI.ArcGIS.Geodatabase;
-using ESRI.ArcGIS.Geometry;
 using Microsoft.Practices.Prism.Commands;
-using SOPFIM.Domain;
+using Sopfim.CustomControls;
+using SOPFIM.DataLayer;
 using Sopfim.ViewModels;
 
 namespace SopfimMessage.ViewModel
@@ -14,13 +13,18 @@ namespace SopfimMessage.ViewModel
     {
         private int? _messageNumberBeforeNewMessage;
         private bool _isNew;
-        private ITable _blockTable;
 
-        public MessageListViewModel() : base()
+        public MessageListViewModel() : this(ApplicationSources.DataService, ApplicationSources.MapControl)
+        {
+            
+        }
+
+        public MessageListViewModel(IDataService dataService, IMapControl mapControl) : base(dataService, mapControl)
         {
             this.EditEffectedCommands.Add(OpenLastMessage);
             this.EditEffectedCommands.Add(NewMessage);
         }
+
 
         #region properties
 
@@ -36,16 +40,6 @@ namespace SopfimMessage.ViewModel
             }
         }
 
-        private MessageViewModel _selectedMessage;
-        public MessageViewModel SelectedMessage
-        {
-            get { return _selectedMessage; }
-            set
-            {
-                _selectedMessage = value;
-                RaisePropertyChanged("SelectedMessage");
-            }
-        }
 
         private string _blocNumber;
         public string BlocNumber
@@ -250,10 +244,10 @@ namespace SopfimMessage.ViewModel
 
         private void SplitMessage()
         {
-            var newRecord = (MessageViewModel) this.SelectedMessage.Clone() ;
+            var newRecord = (MessageViewModel) SelectedRecord.Clone() ;
             newRecord.LvTr = null;
             newRecord.DateTr = null;
-            this.DataList.Insert(this.DataList.IndexOf(this.SelectedMessage) + 1, newRecord);
+            this.DataList.Insert(this.DataList.IndexOf(this.SelectedRecord) + 1, newRecord);
             RefreshFilter();
         }
         #endregion 

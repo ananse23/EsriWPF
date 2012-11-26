@@ -9,35 +9,31 @@ using System.Linq;
 
 namespace Sopfim.ViewModels
 {
-    public class MainWindowViewModel<TModel, TEntity> : NotificationObject where TEntity : EditableEntity, new()
-        where TModel : EditableListViewModel<TEntity>, new()
+    public class MainWindowViewModel<TList, TEntity> : NotificationObject, IMainWindowViewModel<TList, TEntity>
+        where TEntity : EditableEntity, new()
+        where TList : EditableListViewModel<TEntity>, new()
     {
         private readonly IDataService _service;
         private readonly IMapControl _mapService;
         public MainWindowViewModel(IDataService service, IMapControl mapService)
         {
             _service = service;
-            DataSourceHelper.DataService = service;
             _mapService = mapService;
-            DataSourceHelper.MapControl = mapService;
             GetGeodatabaseDomains();
-            DataSourceHelper.Blocks = Blocks;
+//            ApplicationSources.Blocks = Blocks;
         }
+
 
         public virtual void InitializeDataModel()
         {
-            DataViewModel = new TModel {DataService = _service, MapService = _mapService, Blocks = this.Blocks};
+            DataViewModel = new TList();
+            //{ DataService = _service, MapService = _mapService/*, Blocks = this.Blocks*/ };
             DataViewModel.InitialQuery();
         }
 
-        public MainWindowViewModel(string fileGeodatabase, IMapControl mapService) 
-            : this(new DataService(fileGeodatabase), mapService)
-        {
-            
-        }
 
-        private TModel _dataViewModel;
-        public TModel DataViewModel
+        private TList _dataViewModel;
+        public TList DataViewModel
         {
             get { return _dataViewModel; }
             set { _dataViewModel = value;

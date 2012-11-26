@@ -86,9 +86,18 @@
     <Compile Include="Domain\MessageViewModelTest.cs" />
     <Compile Include="Domain\MessageViewModelScenario.cs" />
     <Compile Include="mvvm\EditableDataViewModelTest.cs" />
+    <Compile Include="mvvm\MainWindowViewModelTest.cs" />
+    <Compile Include="mvvm\MessageListViewModelTest.cs" />
+    <Compile Include="mvvm\PulverisationViewModelTest.cs" />
+    <Compile Include="mvvm\SopfimApplicationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sopfim.CustomControls\Sopfim.CustomControls.csproj">
+      <Project>{D76A28F1-70E8-4285-BFEA-8D8836EBF9C1}</Project>
+      <Name>Sopfim.CustomControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SOPFIM.DataLayer\SOPFIM.DataLayer.csproj">
       <Project>{8BB69E4C-A642-4B43-A9EF-D85A7F09EB72}</Project>
       <Name>SOPFIM.DataLayer</Name>
@@ -101,6 +110,13 @@
       <Project>{77B3C7F7-AB83-4747-8620-F4D784C6606C}</Project>
       <Name>Sopfim.ViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SopfimMessage\SopfimMessage.csproj">
+      <Project>{4CBB181F-BE84-499F-AFA5-FE6435246E0C}</Project>
+      <Name>SopfimMessage</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

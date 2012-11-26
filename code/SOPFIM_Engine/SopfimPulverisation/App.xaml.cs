@@ -1,8 +1,9 @@
 ﻿using System.Windows.Threading;
 using Esri.CommonUtils;
 using Sopfim.CustomControls;
-using Sopfim.ViewModels;
 using log4net.Config;
+using Sopfim.ViewModels;
+using SopfimPulverisation.ViewModels;
 
 namespace SopfimPulverisation
 {
@@ -15,7 +16,12 @@ namespace SopfimPulverisation
         {
             XmlConfigurator.Configure();
             base.OnStartup(e);
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            var app = new SopfimApplication<PulverisationListViewModel, PulverisationViewModel>(mainWindow);
+            app.Initialize();
         }
+
 
         private void EsriWpfApp_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {

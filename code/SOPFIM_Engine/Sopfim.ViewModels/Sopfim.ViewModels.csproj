@@ -65,16 +65,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataSourceHelper.cs" />
+    <Compile Include="ApplicationSources.cs" />
     <Compile Include="EditableListViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IMainWindowViewModel.cs" />
+    <Compile Include="ISopfimMainWindow.cs" />
+    <Compile Include="IViewModelFactory.cs" />
     <Compile Include="MainWindowViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageViewModel.cs" />
     <Compile Include="PulverisationViewModel.cs" />
+    <Compile Include="SopfimApplication.cs" />
+    <Compile Include="ViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Esri.CommonUtils\Esri.CommonUtils.csproj">

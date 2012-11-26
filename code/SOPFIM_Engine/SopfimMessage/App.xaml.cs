@@ -2,6 +2,8 @@
 using Sopfim.CustomControls;
 using log4net;
 using log4net.Config;
+using Sopfim.ViewModels;
+using SopfimMessage.ViewModel;
 
 namespace SopfimMessage
 {
@@ -14,6 +16,9 @@ namespace SopfimMessage
         {
             XmlConfigurator.Configure();
             base.OnStartup(e);
+            var mainWindow = new MainWindow();
+            var app = new SopfimApplication<MessageListViewModel, MessageViewModel>(mainWindow);
+            app.Initialize();
         }
 
         private void EsriWpfApp_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="300" />
         </Grid.RowDefinitions>
-        <CustomControls:MapControl x:Name="_mapControl" MapLoaded="_mapControl_MapLoaded" Grid.Row="0"/>
+        <CustomControls:MapControl x:Name="_mapControl" Grid.Row="0"/>
         <GridSplitter x:Name="SplitterHor"
                 ResizeDirection="Rows" 
                 ResizeBehavior="BasedOnAlignment" 
