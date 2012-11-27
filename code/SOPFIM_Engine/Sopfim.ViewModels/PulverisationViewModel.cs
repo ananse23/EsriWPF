@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
 using Microsoft.Practices.Prism.Commands;
@@ -12,19 +13,31 @@ namespace Sopfim.ViewModels
     {
         private readonly IDataService _dataService;
         private readonly IMapControl _mapControl;
-        public PulverisationViewModel(IDataService dataService, IMapControl mapControl)
+        private readonly List<BlocTBE> _blocs;
+        
+        public PulverisationViewModel(IDataService dataService, IMapControl mapControl, List<BlocTBE> blocks)
         {
             _dataService = dataService;
             _mapControl = mapControl;
+            _blocs = blocks;
         }
 
-        public PulverisationViewModel() : this(ApplicationSources.DataService, ApplicationSources.MapControl)
+        public PulverisationViewModel() : this(ApplicationSources.DataService, ApplicationSources.MapControl, ApplicationSources.Blocks)
         {
             
         }
 
         private ITable _blockTable;
-        public string AppPrevue { get; set; }
+
+        private string _appPrevue;
+        public string AppPrevue
+        {
+            get { return _appPrevue; }
+            set { _appPrevue = value;
+            RaisePropertyChanged("AppPrevue");
+            }
+        }
+
         public override string NoBloc
         {
             get
@@ -33,8 +46,11 @@ namespace Sopfim.ViewModels
             }
             set
             {
+                if (base.NoBloc == value)
+                    return;
                 base.NoBloc = value;
                 Locate.RaiseCanExecuteChanged();
+                AppPrevue = _blocs.Find(x => x.NoBloc == base.NoBloc).AppPrevue;
             }
         }
 

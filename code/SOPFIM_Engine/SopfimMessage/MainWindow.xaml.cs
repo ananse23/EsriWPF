@@ -18,7 +18,8 @@ namespace SopfimMessage
 
         private void _tabularData_CellEditEnding(object sender, System.Windows.Controls.DataGridCellEditEndingEventArgs e)
         {
-            ((MainWindowViewModel<MessageListViewModel, MessageViewModel>) this.DataContext).DataViewModel.SetSelectedRecordAsDirty();
+            var dataContext = (MainWindowViewModel<MessageListViewModel, MessageViewModel>) this.DataContext;
+            dataContext.DataViewModel.SetSelectedRecordAsDirty();
         }
 
         public IMapControl MapControl

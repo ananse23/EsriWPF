@@ -46,7 +46,9 @@
     <Reference Include="Microsoft.Practices.Prism">
       <HintPath>..\packages\Prism.4.1.0.0\lib\NET40\Microsoft.Practices.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="ORMapping, Version=1.6.0.2, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="ORMapping, Version=1.6.0.2, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\OrmMapping\ORMapping.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

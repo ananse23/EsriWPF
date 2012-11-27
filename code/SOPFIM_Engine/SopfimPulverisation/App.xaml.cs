@@ -17,7 +17,6 @@ namespace SopfimPulverisation
             XmlConfigurator.Configure();
             base.OnStartup(e);
             var mainWindow = new MainWindow();
-            mainWindow.Show();
             var app = new SopfimApplication<PulverisationListViewModel, PulverisationViewModel>(mainWindow);
             app.Initialize();
         }

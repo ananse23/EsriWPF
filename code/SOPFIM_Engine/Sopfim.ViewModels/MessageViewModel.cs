@@ -13,8 +13,8 @@ namespace Sopfim.ViewModels
     public class MessageViewModel : SuiviMessage, ICloneable
     {
         private ITable _blockTable;
-        private IDataService _dataService;
-        private IMapControl _mapControl;
+        private readonly IDataService _dataService;
+        private readonly IMapControl _mapControl;
         public MessageViewModel(IDataService service, IMapControl mapControl)
         {
             _dataService = service;

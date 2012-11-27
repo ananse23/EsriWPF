@@ -124,7 +124,7 @@
                     <CustomControls:BindableDatagridComboBoxColumn Header="No Bloc" SelectedValueBinding="{Binding NoBloc, UpdateSourceTrigger=LostFocus}" 
                           ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.BlocNumberValuesNonEmpty}" 
                           SelectedValuePath="Code" DisplayMemberPath="Description" Width="*"/>
-                    <DataGridTextColumn  Header="AppPrevue" Visibility="Visible"  Width="*"/>
+                    <DataGridTextColumn  Header="AppPrevue" Visibility="Visible"  Width="*" Binding="{Binding AppPrevue}"/>
                     <CustomControls:BindableDatagridComboBoxColumn Header="Application" SelectedValueBinding="{Binding Application}" 
                           ItemsSource="{Binding RelativeSource={RelativeSource  AncestorType={x:Type Window}}, Path=DataContext.ApplicationValues}" 
                           SelectedValuePath="Code" DisplayMemberPath="Description"  Width="*"/>

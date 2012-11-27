@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ESRI.ArcGIS.Geodatabase;
 using Moq;
 using NUnit.Framework;
@@ -21,7 +22,9 @@ namespace Sopfim.Unittest.mvvm
         {
             _mapControl = new Mock<IMapControl>();
             _dataService = new Mock<IDataService>();
-            _viewModel = new PulverisationViewModel(_dataService.Object, _mapControl.Object);
+            var d = new List<BlocTBE>();
+            //_viewModel = new PulverisationViewModel(_dataService.Object, _mapControl.Object);
+            _viewModel = new PulverisationViewModel(_dataService.Object, _mapControl.Object, d);
             _blocTable = new Mock<ITable>();
             _dataService.Setup(x => x.GetTable("BlocTBE")).Returns(_blocTable.Object);
         }

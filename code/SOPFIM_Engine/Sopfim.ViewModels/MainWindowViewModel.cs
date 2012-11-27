@@ -20,14 +20,13 @@ namespace Sopfim.ViewModels
             _service = service;
             _mapService = mapService;
             GetGeodatabaseDomains();
-//            ApplicationSources.Blocks = Blocks;
+            ApplicationSources.Blocks = Blocks;
         }
 
 
         public virtual void InitializeDataModel()
         {
             DataViewModel = new TList();
-            //{ DataService = _service, MapService = _mapService/*, Blocks = this.Blocks*/ };
             DataViewModel.InitialQuery();
         }
 
